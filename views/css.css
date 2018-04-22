@@ -1,0 +1,350 @@
+body, html {
+  height: 100%;
+}
+
+
+
+body {
+  background: #456;
+}
+
+.primary-bg {
+  position: relative;
+  /* The image used */
+  background-image: url("wallpaper.jpg");
+  /* Full height */
+  height: 950px;
+  width: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login {
+  position: absolute;
+  width: 400px;
+  font-size: 16px;
+  margin-top: 370px;
+  margin-left: 60px;
+}
+
+/* Reset top and bottom margins from certain elements */
+
+.login-header, .login p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.login-header {
+  background: #F67280;
+  padding: 20px;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.login-container {
+  background: #ebebeb;
+  padding: 12px;
+}
+
+/* Every row inside .login-container is defined with p tags */
+
+.login p {
+  padding: 12px;
+}
+
+.login input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px;
+  outline: 0;
+  font-family: inherit;
+  font-size: 0.95em;
+}
+
+.login input[type="email"], .login input[type="password"] {
+  background: #fff;
+  border-color: #bbb;
+  color: #555;
+}
+
+/* Text fields' focus effect */
+
+.login input[type="email"]:focus, .login input[type="password"]:focus {
+  border-color: #888;
+}
+
+.login input[type="submit"] {
+  background: #404B69;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login input[type="submit"]:hover {
+  background: #17c;
+}
+
+/* Buttons' focus effect */
+
+.login input[type="submit"]:focus {
+  border-color: #05a;
+}
+
+/* NAVBAR */
+
+.navbar {
+  position: relative;
+  width: 100%;
+  background: #F67280;
+  opacity: 0.8;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.7);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.navbar>ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+.navbar>ul li {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.navbar>ul li a {
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  padding: 20px 0;
+  font-weight: bold;
+  position: relative;
+}
+
+.navbar>ul li a::before {
+  background: #fff none repeat scroll 0 0;
+  bottom: -2px;
+  content: "";
+  height: 3px;
+  left: 0;
+  position: absolute;
+  width: 0%;
+  transition: 0.5s;
+}
+
+.navbar>ul li a:hover::before {
+  width: 100%;
+}
+
+/* bg2 */
+
+.petCardUser{
+  position: relative;
+  width: 100%;
+  height: 700px;
+  background: #F67280;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.petCardUser::before{
+  position: absolute;
+  width: 60%;
+  height: 165px;
+  content: '';
+  top: -50px;
+  left: 0;
+  background: #F67280;
+  transform: skewY(7deg);
+}
+
+.petCardUser::after{
+  position: absolute;
+  width: 60%;
+  height: 165px;
+  content: '';
+  top: -50px;
+  right: 0;
+  background: #F67280;
+  transform: skewY(-7deg);
+}
+
+.petCardUser h2{
+  position: relative;
+  text-align: center;
+  color: white;
+  z-index: 5;
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.petCardExplain{
+  position: relative;
+  text-align: center;
+  margin-top: 5%;
+  color: white;
+  width: 35%;
+  z-index: 5;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+/* petCardVet */
+
+.petCardVet{
+  background: #00b09b;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #96c93d, #00b09b);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #96c93d, #00b09b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  height: 700px;
+  position: relative;
+}
+
+.petCardVet::after{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background: inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: top right;
+  transform: skewY(4deg);
+}
+
+.petCardVet h2{
+  position: relative;
+  color: white;
+  z-index: 1;
+  background: rgba(0, 100, 100, 0.5);
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.petCardVet p{
+  z-index: 1;
+  position: relative;
+  margin-top: 50px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.petCardVet img {
+  position: relative;
+  z-index: 1;
+  margin-left: 20%;
+  margin-top: 15%;
+  width: 70%;
+}
+
+/* petCardFarm */
+
+.petCardFarm{
+  background: #74ebd5;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ACB6E5, #74ebd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  height: 500px;
+  position: relative;
+}
+
+.petCardFarm::after{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background: inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: top left;
+  transform: skewY(-4deg);
+}
+
+.petCardFarm h2{
+  z-index: 1;
+  position: absolute;
+  margin-top: 50px;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.petCardFarm p {
+  position: absolute;
+  z-index: 1;
+  margin-top: 150px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.petCardFarm img{
+  position: relative;
+  z-index: 1;
+  width: 70%;
+}
+
+/* petCardLab */
+
+.petCardLab{
+  background: #a8c0ff;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #3f2b96, #a8c0ff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #3f2b96, #a8c0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  height: 600px;
+  position: relative;
+}
+
+.petCardLab h2{
+  position: relative;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 50px;
+  z-index: 1
+}
+
+.petCardLab p{
+  position: relative;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 50px;
+  z-index: 1
+}
+
+.petCardLab img {
+  position: relative;
+  z-index: 1;
+  width: 80%;
+  margin-left: 25%;
+  margin-top: 15%;
+}
+
+.petCardLab::after{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  background: inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: top left;
+  transform: skewY(-4deg);
+}

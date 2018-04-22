@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>My Pet Card</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="css.css">
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+    // Add smooth scrolling to all links
+    $("a").on('click', function(event) {
+
+      // Make sure this.hash has a value before overriding default behavior
+      if (this.hash !== "") {
+        // Prevent default anchor click behavior
+        event.preventDefault();
+
+        // Store hash
+        var hash = this.hash;
+
+        // Using jQuery's animate() method to add smooth page scroll
+        // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+        $('html, body').animate({
+          scrollTop: $(hash).offset().top
+        }, 800, function(){
+
+          // Add hash (#) to URL when done scrolling (default click behavior)
+          window.location.hash = hash;
+        });
+      } // End if
+    });
+  });
+  </script>
+
+</head>
+
+<body>
+
+  <div class="primary-bg">
+
+    <!-- navbar -->
+    <nav class="navbar ">
+      <ul>
+        <li><a href="#client">MyPetCard para clientes</a></li>
+        <li><a href="#vet">Veterinarios</a></li>
+        <li><a href="#farm">Farmacias</a></li>
+        <li><a href="#lab">laboratorios</a></li>
+      </ul>
+    </nav>
+    <!-- navbar -->
+
+    <div class="login">
+
+      <h2 class="login-header">Log in</h2>
+
+      <form class="login-container">
+        <p><input type="email" placeholder="Email"></p>
+        <p><input type="password" placeholder="Password"></p>
+        <p><input type="submit" value="Log in"></p>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="petCardUser text-center" id="client">
+    <h2>¿Qué es My Pet Card?</h2>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-6">
+        </div>
+
+        <div class="petCardExplain text-justify col-6">
+          <p>My Pet Card es un sistema en el que todos los datos de su mascota se podrán visualizar vía web. El veterinario añadirá los medicamentos que necesite y usted y la farmacia los podrá ver para no necesitar llevar consigo el papel de la receta.
+            Así mismo podrá comprar medicamentos online que necesiten receta ya que se podrá comprobar si han sido recetados.
+          </p>
+
+          <br>
+
+          <p>Ventajas</p>
+          <ul>
+            <li>Cómodo</li>
+            <li>Fácil</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="petCardVet" id="vet">
+    <div class="container text-justify">
+
+      <div class="row">
+        <div class="col-6">
+
+          <h2 >My Pet Card para Veterinarios</h2>
+
+          <p>Disfrute de poder recetar eligiendo entre todos los médicamentos, puediendo elegir el mejor, pudiendo filtrar por necesidades, efectos, contraindicaciones para así poder recetar el mejor medicamento para las mascotas.</p>
+
+          <p>Fácil, sencillo, así se describe al programa, tan solo busque a la mascota, consulte sus datos como medicamentos recetados, comentarios, peso, edad, etc.</p>
+
+          <p>Busque por CHIP o por DNI del dueño, consulte los nuevos medicamentos que van saliendo y mantengase actualizado y recete lo mejor.</p>
+
+        </div>
+        <div class="col-6">
+          <img src="../imgs/1.png" alt="">
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="petCardFarm" id="farm">
+    <div class="container text-justify">
+
+      <div class="row">
+
+        <div class="col-6">
+          <img src="../imgs/farm.png" alt="">
+
+        </div>
+
+        <div class="col-6">
+
+          <h2>My pet Card para Farmacias</h2>
+
+          <p>Disfrute de poder vender más medicamentos ya que podrá consultar cuales son los más vendidos, no necesitará tener stock inncesario. Consulte rápidamente los médicamentos recetados, consulte la cantidad y la fecha de expiración.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="petCardLab" id="lab">
+    <div class="container text-justify">
+
+      <div class="row">
+
+        <div class="col-6">
+          <h2>My pet Card para Laboratorios</h2>
+
+          <p>Lance al mercado nuevos medicamentos fácilmente, cualquier veterinario podrá consultar su medicamento. Haga consultas para estudios de mercado y comprueba qué medicamento se vende más.</p>
+
+        </div>
+
+        <div class="col-6">
+          <img src="../imgs/lab.png" alt="">
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
