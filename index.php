@@ -4,7 +4,7 @@ require_once("db/db.php");
 require_once("controllers/home_controller.php");
 require_once("controllers/login_controller.php");
 
-
+session_start();
 
 if (isset($_GET['action'])) {
 
@@ -15,7 +15,6 @@ if (isset($_GET['action'])) {
   }
 
 } else {
-
     $homeController = new home_controller();
     $homeController->view();
 }

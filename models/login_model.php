@@ -112,7 +112,7 @@ class login_model {
     // Función para logear (comprueba que el usuario existe en la BD)
     public function verifyUser() {
 
-        $consulta = "SELECT * FROM usuarios WHERE usuario ='{$this->username}' AND contraseña = '{$this->password}';";
+        $consulta = "SELECT * FROM usuarios WHERE usuario ='{$this->username}' AND contrasenya = '{$this->password}';";
         $resultado = $this->db->query($consulta) or trigger_error(mysqli_error($this->db) . " " . $consulta);
         if ($resultado->num_rows > 0) {
             while ($row = $resultado->fetch_assoc()) {
