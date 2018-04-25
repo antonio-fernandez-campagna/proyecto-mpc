@@ -2,7 +2,9 @@
 
 class login_model {
 
+    private $users;
     public $db;
+    
     private $name;
     private $surname;
     private $dni;
@@ -11,7 +13,6 @@ class login_model {
     private $password;
     private $type;
     private $nCollege;
-
 
     public function __construct() {
         $this->db = Conectar::conexion();
@@ -83,7 +84,6 @@ class login_model {
         $this->nCollege = $nCollege;
     }
 
-
     // Función que inserta un usuario en la bd y comprueba que no haya un usuario con ese mismo nombre de usuario
     public function insert_user() {
 
@@ -110,17 +110,17 @@ class login_model {
     }
 
     // Función para logear (comprueba que el usuario existe en la BD)
+
+
     public function verifyUser() {
 
-        $consulta = "SELECT * FROM usuarios WHERE usuario ='{$this->username}' AND contrasenya = '{$this->password}';";
-        $resultado = $this->db->query($consulta) or trigger_error(mysqli_error($this->db) . " " . $consulta);
-        if ($resultado->num_rows > 0) {
-            while ($row = $resultado->fetch_assoc()) {
-                return true;
-            }
-        } else {
-            return false;
+        $query = "SELECT u.*, t.tipo as tipo_usuario FROM usuarios u, tipo_usuario t WHERE u.usuario ='{$this->username}' AND u.contrasenya = '{$this->password}' AND u.tipo = t.id;";
+        
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->users = $filas;
         }
+        return $this->users;
     }
 
 }

@@ -3,29 +3,27 @@
 class home_controller {
 
     // Función que muestra la página principal
-    function view() {
-
+    function view($userCat = "") {
+        
         if(!empty($_SESSION['user'])){
             
-             if ($_SESSION['user'] == "vet" ){
+             if (!empty($_SESSION['user']) && $_SESSION['userType'] == "veterinario" ){
             require_once("views/vet_view.phtml");
+             }
+             
+            if (!empty($_SESSION['user']) && $_SESSION['userType'] == "proveedor"){
+            require_once("views/lab_view.phtml");
+             }
+             
+             if (!empty($_SESSION['user']) && $_SESSION['userType'] == "distribuidor"){
+            require_once("views/farm_view.phtml");
              }
             
         } else {
             require_once("views/home_view.phtml");
-        }
-        
-        
-    }
-
-    function user_view() {
-        
-        if ($_SESSION['user'] == "vet" ){
-            require_once("views/vet_view.phtml");
-        }
+        }    
         
     }
-
 
 }
 

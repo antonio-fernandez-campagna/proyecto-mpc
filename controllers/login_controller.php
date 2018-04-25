@@ -17,16 +17,22 @@ class login_controller {
         $user_model->setUsername($user);
         $user_model->setPassword($contrasenya);
 
-        $ok = $user_model->verifyUser();
+        
+        $userType = $user_model->verifyUser();
+
 
          // si se ha logeado correctamente muestra la página principal y devuelve true, sino false y mostrará un intento
         // de inicio de sesión fallido
         
-        if ($ok) {
+        if (!empty($userType)) {
+            
             $_SESSION['user'] = $user;
-
+  
+            $_SESSION['userType'] = $userType["tipo_usuario"];
+            
+                      
             $home = new home_controller();
-            $home->user_view();
+            $home->view($_SESSION['userType']);
 
             return true;
         } else {
