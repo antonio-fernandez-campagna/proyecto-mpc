@@ -1,4 +1,5 @@
 <?php
+require_once("controllers/medicines_controller.php");
 
 class home_controller {
 
@@ -7,7 +8,12 @@ class home_controller {
         
         if(!empty($_SESSION['user'])){
             
+            $med = new medicines_controller();
+            $data['medicines'] = $med->all_medicines();
+            
              if (!empty($_SESSION['user']) && $_SESSION['userType'] == "veterinario" ){
+                 
+                 
             require_once("views/vet_view.phtml");
              }
              
