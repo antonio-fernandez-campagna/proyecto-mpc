@@ -17,7 +17,7 @@
       </ul>
 
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Buscar acciones med." aria-label="Search">
+        <input class="form-control mr-sm-2" type="search" placeholder="Buscar acciones med." aria-label="Search" id="efectSearch">
       </form>
 
       <form class="form-inline my-2 my-lg-0">
@@ -63,29 +63,9 @@
             <a class="accordion-section-title text-left" href="#accordion-1">Especie</a>
             <div id="accordion-1" class="accordion-section-content">
               <div class="funkyradio">
-                <div class="funkyradio-default">
-                  <input type="checkbox" name="checkbox" id="checkbox1" checked/>
-                  <label for="checkbox1">First Option default</label>
-                </div>
-                <div class="funkyradio-primary">
-                  <input type="checkbox" name="checkbox" id="checkbox2" checked/>
-                  <label for="checkbox2">Second Option primary</label>
-                </div>
-                <div class="funkyradio-success">
-                  <input type="checkbox" name="checkbox" id="checkbox3" checked/>
-                  <label for="checkbox3">Third Option success</label>
-                </div>
                 <div class="funkyradio-danger">
                   <input type="checkbox" name="checkbox" id="checkbox4" checked/>
                   <label for="checkbox4">Fourth Option danger</label>
-                </div>
-                <div class="funkyradio-warning">
-                  <input type="checkbox" name="checkbox" id="checkbox5" checked/>
-                  <label for="checkbox5">Fifth Option warning</label>
-                </div>
-                <div class="funkyradio-info">
-                  <input type="checkbox" name="checkbox" id="checkbox6" checked/>
-                  <label for="checkbox6">Sixth Option info</label>
                 </div>
               </div>
             </div>
@@ -127,7 +107,7 @@
 
         <?php foreach ($data['medicines'] as $medicine){ ?>
 
-      <div class="card mb-2 col-6">
+      <div class="card mb-2 col-3 card-medicines">
           <a data-toggle="modal" href="#modall" style="width: 40%"><img class="card-img-top" src="<?php echo $medicine['url'] ?>"></a>
         <div class="card-block">
           <h4 class="card-title"><?php echo $medicine['nombre'] ?></h4>
@@ -179,6 +159,7 @@
           <button name="id" value="" class="btn btn-outline-success float-right btn-sm" data-toggle="collapse" data-target="#collapseExample">Recetar</button>
         </div>
       </div>
+
 
         <?php } ?>
 
