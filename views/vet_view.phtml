@@ -63,10 +63,15 @@
             <a class="accordion-section-title text-left" href="#accordion-1">Especie</a>
             <div id="accordion-1" class="accordion-section-content">
               <div class="funkyradio">
+                                    <?php foreach ($data['species'] as $spec) { ?>
+
                 <div class="funkyradio-danger">
-                  <input type="checkbox" name="checkbox" id="checkbox4" checked/>
-                  <label for="checkbox4">Fourth Option danger</label>
-                </div>
+
+                    <input type="checkbox" name="checkbox" id="checkbox<?php echo $spec['id']; ?>" />
+                    <label for="checkbox<?php echo $spec['id']; ?>"><?php echo $spec['especie']; ?></label>
+
+                  </div>
+                                 <?php  } ?>
               </div>
             </div>
             <!--end .accordion-section-content-->
@@ -76,9 +81,17 @@
           <div class="accordion-section">
             <a class="accordion-section-title text-left" href="#accordion-2">Categorias</a>
             <div id="accordion-2" class="accordion-section-content">
-              <p>Mauris interdum fringilla augue vitae tincidunt. Curabitur vitae tortor id eros euismod ultrices. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent nulla mi, rutrum ut feugiat at, vestibulum ut
-                neque? Cras tincidunt enim vel aliquet facilisis. Duis congue ullamcorper vehicula. Proin nunc lacus, semper sit amet elit sit amet, aliquet pulvinar erat. Nunc pretium quis sapien eu rhoncus. Suspendisse ornare gravida mi, et placerat
-                tellus tempor vitae.</p>
+              <div class="funkyradio">
+                                    <?php foreach ($data['categories'] as $category) { ?>
+
+                <div class="funkyradio-danger">
+
+                    <input type="checkbox" name="checkbox" id="checkbox<?php echo $category['id']; ?>" />
+                    <label for="checkbox<?php echo $category['id']; ?>"><?php echo $category['nombre']; ?></label>
+
+                  </div>
+                                 <?php  } ?>
+              </div>
             </div>
             <!--end .accordion-section-content-->
           </div>
@@ -107,8 +120,8 @@
 
         <?php foreach ($data['medicines'] as $medicine){ ?>
 
-      <div class="card mb-2 col-3 card-medicines">
-          <a data-toggle="modal" href="#modall" style="width: 40%"><img class="card-img-top" src="<?php echo $medicine['url'] ?>"></a>
+      <div class="card mb-5 col-3 ml-5 card-medicines ">
+          <img class="card-img-top" src="<?php echo $medicine['url'] ?>" style="width:70%">
         <div class="card-block">
           <h4 class="card-title"><?php echo $medicine['nombre'] ?></h4>
           <div class="meta">
@@ -118,7 +131,7 @@
             <?php echo $medicine['efecto'] ?>
           </div>
 
-          <div class="collapse mt-2" id="collapseExample">
+          <div class="collapse mt-2" id="collapseExample<?php echo $medicine['id'] ?>">
             <div class="card card-body">
               <div class="meta">
                 <span class="mt-2">Efecto Secundario</span>
@@ -156,7 +169,7 @@
 
         </div>
         <div class="card-footer">
-          <button name="id" value="" class="btn btn-outline-success float-right btn-sm" data-toggle="collapse" data-target="#collapseExample">Recetar</button>
+          <button name="id" value="" class="btn btn-outline-success float-right btn-sm" data-toggle="collapse" data-target="#collapseExample<?php echo $medicine['id'] ?>">Recetar</button>
         </div>
       </div>
 

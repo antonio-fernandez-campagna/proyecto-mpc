@@ -1,6 +1,6 @@
 <?php
 require_once("controllers/medicines_controller.php");
-
+require_once 'controllers/categories_controller.php';
 class home_controller {
 
     // Función que muestra la página principal
@@ -9,11 +9,14 @@ class home_controller {
         if(!empty($_SESSION['user'])){
             
             $med = new medicines_controller();
+            $cat = new categories_controller();
+                    
             $data['medicines'] = $med->all_medicines();
+            $data['categories'] = $cat->all_categories();
             
+
              if (!empty($_SESSION['user']) && $_SESSION['userType'] == "veterinario" ){
-                 
-                 
+                    
             require_once("views/vet_view.phtml");
              }
              

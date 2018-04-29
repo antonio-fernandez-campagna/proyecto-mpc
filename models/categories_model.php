@@ -1,6 +1,6 @@
 <?php
 
-class medicines_model {
+class categories_model {
 
     public  $db;
     private $categories;

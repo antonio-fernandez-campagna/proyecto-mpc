@@ -4,20 +4,16 @@ class medicines_model {
 
     public $db;
     private $medicines;
-
+    private $med_spe;
+    private $species;
     private $id;
     private $name;
-    private $stock;
-    private $price;
-    private $sponsored;
-    private $shortDescription;
-    private $longDescription;
-    private $brand;
-    private $category;
 
     public function __construct() {
         $this->db = Conectar::conexion();
         $this->medicies = array();
+        $this->med_spe = array();
+        $this->species = array();
     }
 
     // Función que devuelve todos los productos
@@ -46,6 +42,22 @@ class medicines_model {
         return $this->medicines;
     }
 
+    public function get_medicine_specie() {
+        $query = "SELECT * FROM medicamento_especie";
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->med_spe[] = $filas;
+        }
+        return $this->med_spe;
+    }
 
+    public function get_species() {
+        $query = "select a.* from animales a, medicamento_especie med where a.id = med.id_especie";
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->species[] = $filas;
+        }
+        return $this->species;
+    }
 
 }

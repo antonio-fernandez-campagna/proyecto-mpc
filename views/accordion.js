@@ -55,10 +55,9 @@ jQuery(document).ready(function () {
 function process_data(medicines) {
 
     var html = "";
-     for(var medicine in medicines ) {
-
-        html += "<div class='card mb-2 col-3 card-medicines'>"
-                + "<a data-toggle='modal' href='#modall' style='width: 40%'><img class='card-img-top' src='" + medicine['url'] + "'></a>"
+medicines.forEach(function(medicine){
+        html += "<div class='card mb-5 col-3 ml-5 card-medicines'>"
+                + "<a data-toggle='modal' href='#modall' style='width: 40%'><img class='card-img-top' src='" + medicine.url + "'></a>"
                 + "<div class='card-block'>"
                 + "<h4 class='card-title'>"
                 + medicine.nombre
@@ -67,15 +66,15 @@ function process_data(medicines) {
                 + "<a data-toggle='modal' href='#modal'>categoria aqui></a>"
                 + "</div>"
                 + "<div class='card-text'>"
-        medicine['efecto']
+                 + medicine.efecto
                 + "</div>"
 
-                + "<div class='collapse mt-2' id='collapseExample'>"
+                + "<div class='collapse mt-2' id='collapseExample" + medicine.id + "'>"
                 + "<div class='card card-body'>"
                 + "<div class='meta'>"
                 + "<span class='mt-2'>Efecto Secundario</span>"
                 + "</div>"
-        medicine['efecto_secundario']
+                +   medicine.efecto_secundario
                 + "</div>"
                 + "<div class='row mt-4'>"
                 + "<div class='col-6'>"
@@ -106,11 +105,11 @@ function process_data(medicines) {
 
                 + "</div>"
                 + "<div class='card-footer'>"
-                + "<button name='id' value='' class='btn btn-outline-success float-right btn-sm' data-toggle='collapse' data-target='#collapseExample'>Recetar</button>"
+                + "<button name='id' value='' class='btn btn-outline-success float-right btn-sm' data-toggle='collapse' data-target='#collapseExample" + medicine.id + "'>Recetar</button>"
                 + "</div>"
                 + "</div>"
 
-    }
+    });
 
     return html;
 }

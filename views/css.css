@@ -690,3 +690,12 @@ h5 {
 .table{
   width: 99%;
 }
+
+#prueba{
+  max-width: 4.333333% !important;
+  flex: 4.333333% !important;
+}
+
+.card-block{
+  min-height:180px
+}
