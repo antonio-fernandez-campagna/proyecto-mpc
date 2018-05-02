@@ -6,6 +6,7 @@ class medicines_model {
     private $medicines;
     private $med_spe;
     private $species;
+    private $administration;
     private $id;
     private $name;
 
@@ -14,6 +15,7 @@ class medicines_model {
         $this->medicies = array();
         $this->med_spe = array();
         $this->species = array();
+        $this->administration = array();
     }
 
     // Función que devuelve todos los productos
@@ -42,22 +44,35 @@ class medicines_model {
         return $this->medicines;
     }
 
-    public function get_medicine_specie() {
-        $query = "SELECT * FROM medicamento_especie";
-        $consulta = $this->db->query($query);
-        while ($filas = $consulta->fetch_assoc()) {
-            $this->med_spe[] = $filas;
-        }
-        return $this->med_spe;
-    }
 
     public function get_species() {
-        $query = "select a.* from animales a, medicamento_especie med where a.id = med.id_especie";
+        $query = "sELECT med_spe.*, a.especie FROM medicamento_especie med_spe, animales a where a.id = med_spe.id_especie";
         $consulta = $this->db->query($query);
         while ($filas = $consulta->fetch_assoc()) {
             $this->species[] = $filas;
         }
         return $this->species;
+    }
+    
+        public function get_all_species() {
+        $query = "SELECT * FROM animales";
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->species[] = $filas;
+        }
+        return $this->species;
+    }
+
+    public function get_way_administration() {
+        $query = "SELECT * FROM administramiento_medicamento";
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->administration[] = $filas;
+        }
+        return $this->administration;
+        
+        
+        
     }
 
 }

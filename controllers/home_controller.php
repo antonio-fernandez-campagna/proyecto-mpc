@@ -11,8 +11,11 @@ class home_controller {
             $med = new medicines_controller();
             $cat = new categories_controller();
                     
-            $data['medicines'] = $med->all_medicines();
+            $data['medicines'] = $med->all_medicines();                      
             $data['categories'] = $cat->all_categories();
+            $data['species'] = $med->all_species();
+            
+            $data['administration'] = $med->all_way_administration();
             
 
              if (!empty($_SESSION['user']) && $_SESSION['userType'] == "veterinario" ){

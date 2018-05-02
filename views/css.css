@@ -699,3 +699,8 @@ h5 {
 .card-block{
   min-height:180px
 }
+
+
+.card-img-top{
+    min-height: 210px !important;
+}
