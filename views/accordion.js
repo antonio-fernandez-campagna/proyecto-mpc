@@ -50,6 +50,28 @@ jQuery(document).ready(function () {
         return false;
     });
 
+    // guardo en la variable currencies el array de productos de autocomplete_controller.php haciendo
+    // una llamada vía AJAX
+
+    var currencies = function () {
+        var products = null;
+        $.ajax({
+            'async': false,
+            'type': "GET",
+            'global': false,
+            'url': "controllers/autocomplete_controller.php",
+            'success': function (response) {
+                products = $.parseJSON(response);
+            }
+        });
+        return products;
+    }();
+
+    // utiliza una libreria para autocompletar las palabras que vayan pasando por el buscador
+    $('#autocomplete').autocomplete({
+        lookup: currencies,
+    });
+
 });
 
 function process_data(medicines) {

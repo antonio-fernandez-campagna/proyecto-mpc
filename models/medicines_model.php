@@ -44,7 +44,6 @@ class medicines_model {
         return $this->medicines;
     }
 
-
     public function get_species() {
         $query = "sELECT med_spe.*, a.especie FROM medicamento_especie med_spe, animales a where a.id = med_spe.id_especie";
         $consulta = $this->db->query($query);
@@ -53,8 +52,8 @@ class medicines_model {
         }
         return $this->species;
     }
-    
-        public function get_all_species() {
+
+    public function get_all_species() {
         $query = "SELECT * FROM animales";
         $consulta = $this->db->query($query);
         while ($filas = $consulta->fetch_assoc()) {
@@ -70,9 +69,31 @@ class medicines_model {
             $this->administration[] = $filas;
         }
         return $this->administration;
-        
-        
-        
     }
+
+    public function get_name_medicine_autocomplete() {
+        $query = "SELECT m.*, mn.nombre as value, mn.id as data FROM medicamento m, medicamento_nombre mn where m.id = mn.id";
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->medicines[] = $filas;
+        }
+        return $this->medicines;
+    }
+    
+      public function get_name_medicine($medicine) {
+        $query = "SELECT med.id, medN.nombre, cat.nombre as categoria, efe.efecto, efeSec.efecto_secundario, adm.administramiento, 
+            img.url, lab.marca FROM medicamento med, medicamento_nombre medN, categoria_medicamento cat, efecto_medicamento efe, 
+            efectos_secundarios efeSec, administramiento_medicamento adm, imagenes img, laboratorio lab
+            where med.nombre = medN.id AND med.categoria = cat.id AND med.efecto = efe.id AND
+            med.efecto_secundario = efeSec.id AND med.administramiento = adm.id AND
+            med.imagen = img.id AND med.marca = lab.id and medN.nombre like '%$medicine%'";
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->medicines[] = $filas;
+        }
+        return $this->medicines;
+    }
+    
+    
 
 }

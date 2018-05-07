@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="http://127.0.0.1/proyecto-mtc/views/vet_add_pet_view.html">Añadir mascotas</a>
+                <a class="nav-link"  href="?action=petAddView">Añadir mascotas</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=logout">logout</a>
@@ -20,8 +20,8 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Buscar acciones med." aria-label="Search" id="efectSearch">
         </form>
 
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar medicamento" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" action="index.php?action=searchMedicine" method="post">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar medicamento" aria-label="Search" id="autocomplete" name="medicineName">
         </form>
     </div>
 </nav>
@@ -40,18 +40,25 @@
 
                         <!-- Search form -->
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Buscar por DNI" aria-label="Search term" aria-describedby="basic-addon">
+                          <form class="form-inline" action="index.php?action=searchPetDni" method="post">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar por DNI" aria-label="Search term" aria-describedby="basic-addon" name="dni">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-success" type="button">Buscar</button>
+                                <button class="btn btn-outline-success" type="submit">Buscar</button>
                             </div>
+                          </div>
+                          </form>
+
                         </div>
 
                         <!-- Search form -->
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3" >
+                          <form class="form-inline" action="index.php?action=searchPetDni" method="post">
                             <input type="text" class="form-control" placeholder="Buscar por CHIP" aria-label="Search term" aria-describedby="basic-addon">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-success" type="button">Buscar</button>
                             </div>
+                          </form>
                         </div>
                     </div>
                     <!--end .accordion-section-content-->
@@ -142,8 +149,8 @@
                     <div class="card-text">
                         <?php echo $medicine['efecto'] ?>
                     </div>
-
-                    <div class="collapse mt-2" id="collapseExample<?php echo $medicine['id'] ?>">
+                    <form action="index.php?action=addPresciption" method="post">
+                    <div class="collapse mt-2" id="collapseExample<?php echo $medicine['id'] ?>" name="<?php echo $medicine['id'] ?>">
                         <div class="card card-body">
                             <div class="meta">
                                 <span class="mt-2">Efecto Secundario</span>
@@ -153,7 +160,7 @@
                         <div class="row mt-4">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Cantidad de cajas">
+                                    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Cantidad" name="quantity">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -166,17 +173,17 @@
 
                         <div class="form-group">
                             <label for="comment">Observación</label>
-                            <textarea class="form-control" rows="5" id="comment"></textarea>
+                            <textarea class="form-control" rows="5" id="comment" name="observation"></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="usr">Número de chip:</label>
                             <input type="text" class="form-control" id="usr">
                         </div>
-                        <button name="id" value="" class="btn btn-outline-danger float-right btn-sm" data-toggle="collapse" data-target="#collapseExample">Confirmar receta</button>
+                        <button name="id" type="submit" class="btn btn-outline-danger float-right btn-sm" data-toggle="collapse" data-target="#collapseExample">Confirmar receta</button>
 
                     </div>
-
+                  </form>
 
 
                 </div>

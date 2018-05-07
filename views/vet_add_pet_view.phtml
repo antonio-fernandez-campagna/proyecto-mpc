@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html>
+<?php include 'views/templates/header_template.phtml'; ?>
 
-<head>
-  <meta charset="utf-8">
-  <title>My Pet Card</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="accordion.js"></script>
-  <link rel="stylesheet" href="css.css">
-
-
-</head>
 
 <body>
 
@@ -41,44 +28,61 @@
 
 
   <div class="container br-light  mt-4 minHeight">
-    <form name="addProd" action="index.php?controller=products&action=insert" method="post">
+
+    <?php if ($errorAdd == "true") { ?>
+        <div class="alert alert-danger" role="alert">
+            Error al insertar la mascota
+        </div>
+    <?php } elseif ($errorAdd == "false") { ?>
+      <div class="alert alert-success" role="alert">
+          Se ha insertado correctamente
+      </div>
+    <?php } ?>
+
+
+    <form name="addPet" action="?action=addPet" method="post">
 
       <div class="mb-3">
 
         <div class="form-row">
           <div class="col">
-            <input type="text" class="form-control mb-3" name="name" placeholder="Nombre mascota">
+            <input type="text" class="form-control mb-3" name="petName" placeholder="Nombre mascota">
           </div>
           <div class="col">
-            <input type="text" class="form-control" name="descShort" placeholder="Especie">
+            <select class="custom-select"name="specie">
+              <option value="NULL" selected>Elige...</option>
+              <?php foreach ($data as $dato) { ?>
+              <option value="<?php echo $dato['id'] ?>"><?php echo $dato['especie'] ?></option>
+              <?php } ?>
+            </select>
           </div>
 
         </div>
 
         <div class="form-row">
           <div class="col">
-            <input type="text" class="form-control mb-3" name="name" placeholder="DNI propietario">
+            <input type="text" class="form-control mb-3" name="dni" placeholder="DNI propietario">
           </div>
           <div class="col">
-            <input type="text" class="form-control" name="descShort" placeholder="CHIP mascota">
+            <input type="text" class="form-control" name="chip" placeholder="CHIP mascota">
           </div>
         </div>
 
         <div class="form-row">
           <div class="col">
-            <input type="text" class="form-control mb-3" name="name" placeholder="TLF propietario">
+            <input type="date" class="form-control" name="birth" placeholder="Fecha nacimiento">
           </div>
           <div class="col">
-            <input type="text" class="form-control" name="descShort" placeholder="Fecha nacimiento (añadir)">
+            <input type="number" class="form-control" name="weight" placeholder="Peso (kg)">
           </div>
         </div>
 
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline1" name="promotionedRadio" value="y" class="custom-control-input">
+          <input type="radio" id="customRadioInline1" name="sex" value="m" class="custom-control-input">
           <label class="custom-control-label" for="customRadioInline1">Macho</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline2" name="promotionedRadio" value="n" class="custom-control-input">
+          <input type="radio" id="customRadioInline2" name="sex" value="f" class="custom-control-input">
           <label class="custom-control-label" for="customRadioInline2">Hembra</label>
         </div>
 

@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html>
+<?php include 'views/templates/header_template.phtml'; ?>
 
-<head>
-  <meta charset="utf-8">
-  <title>My Pet Card</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="accordion.js"></script>
-  <link rel="stylesheet" href="css.css">
-
-
-</head>
 
 <body>
 
@@ -47,8 +34,11 @@
         <th scope="col">Raza</th>
         <th scope="col">Edad</th>
         <th scope="col">Peso</th>
+        <th scope="col">sexo</th>
         <th scope="col">Medicamento crónico</th>
         <th scope="col">Comentario</th>
+        <th scope="col">chip</th>
+        <th scope="col">Dni propietario</th>
         <th scope="col">Editar</th>
 
 
@@ -56,16 +46,20 @@
       </tr>
     </thead>
     <tbody>
+        <?php foreach ($data['pets'] as $pet){ ?>
       <tr>
-        <th>Lili</th>
-        <td>Canina</td>
-        <td>Pastor Alemán</td>
-        <td>5 Años</td>
-        <td>20kg</td>
-        <td>Fluimocil</td>
-        <td>es hipertenso</td>
+        <th><?php $pet['nombre'] ?></th>
+        <td><?php $pet['especie_animal'] ?></td>
+        <td><?php $pet['edad'] ?></td>
+        <td><?php $pet['peso'] ?></td>
+        <td><?php $pet['sexo'] ?></td>
+        <td><?php $pet['med_cronico'] ?></td>
+        <td><?php $pet['comentario'] ?></td>
+        <td><?php $pet['chip'] ?></td>
+        <td><?php $pet['dni_propietario'] ?></td>
         <td>Editar</td>
       </tr>
+      <?php } ?>
       <tr>
         <th>Lili</th>
         <td>Canina</td>

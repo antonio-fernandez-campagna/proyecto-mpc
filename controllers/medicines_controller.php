@@ -2,6 +2,8 @@
 
 //Llamada al modelo
 require_once("models/medicines_model.php");
+require_once("controllers/medicines_controller.php");
+
 
 // clase que controla aádir productos, la vista de productos (la del buscador o por subcategorias), y se mostrarán las categorias
 class medicines_controller {
@@ -56,6 +58,15 @@ class medicines_controller {
         $administration = $med->get_way_administration();
 
         return $administration;
+    }
+    
+    function name_medicine($medicine){
+        
+        $med = new medicines_model();
+        
+        $data['medicines'] = $med->get_name_medicine($medicine); 
+        
+        return $data['medicines'];
     }
 
 }

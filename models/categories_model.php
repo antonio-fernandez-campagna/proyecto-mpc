@@ -2,9 +2,8 @@
 
 class categories_model {
 
-    public  $db;
+    public $db;
     private $categories;
-
     private $id;
     private $name;
 
@@ -24,5 +23,15 @@ class categories_model {
         return $this->categories;
     }
 
+    // Función que devuelve los medicamentos por su nombre
+    public function get_name_medicine() {
+        $query = "SELECT * FROM categoria_medicamento";
+
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->categories[] = $filas;
+        }
+        return $this->categories;
+    }
 
 }
