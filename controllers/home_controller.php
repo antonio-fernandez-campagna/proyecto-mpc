@@ -6,17 +6,17 @@ require_once 'controllers/categories_controller.php';
 class home_controller {
 
     // Función que muestra la página principal
-    function view($userCat = "", $med_name = "") {
+    function view($userCat = "", $medName = "", $presError = "") {
 
         if (!empty($_SESSION['user'])) {
 
             $med = new medicines_controller();
             $cat = new categories_controller();
 
-            if (empty($med_name)) {
+            if (empty($medName)) {
                 $data['medicines'] = $med->all_medicines();
             } else {
-                $data['medicines'] = $med->name_medicine($med_name);
+                $data['medicines'] = $med->name_medicine($medName);
             }
 
             $data['categories'] = $cat->all_categories();

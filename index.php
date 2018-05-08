@@ -4,12 +4,14 @@ require_once("db/db.php");
 require_once("controllers/home_controller.php");
 require_once("controllers/login_controller.php");
 require_once("controllers/pets_controller.php");
+require_once("controllers/prescriptions_controller.php");
 
 session_start();
 //session_destroy();
 $homeController = new home_controller();
 $login_controller = new login_controller();
 $pets_controller = new pets_controller();
+$prescriptions_controller = new prescriptions_controller();
 
 if (isset($_GET['action'])) {
 
@@ -41,10 +43,11 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == "searchPetDni") {
         $pets_controller->pet_dni_view();
     }
-
-    if ($_GET['action'] == "addPresciption") {
-        $pets_controller->pet_dni_view();
+    
+    if ($_GET['action'] == "addPresciption"){
+        $prescriptions_controller->add_prescription();
     }
+    
 } else {
     $homeController = new home_controller();
     $homeController->view();

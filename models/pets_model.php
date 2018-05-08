@@ -4,6 +4,7 @@ class pets_model {
 
     public $db;
     private $species;
+    private $petId;
     private $id;
     private $specie;
     private $sex;
@@ -123,6 +124,16 @@ class pets_model {
             $this->species[] = $filas;
         }
         return $this->species;
+    }
+
+    public function get_pet_id($chip) {
+        $query = "SELECT id FROM mascota where chip = '{$chip}'";
+
+        $consulta = $this->db->query($query);
+        $filas = $consulta->fetch_assoc();
+        $this->petId = $filas;
+
+        return $this->petId;
     }
 
 }

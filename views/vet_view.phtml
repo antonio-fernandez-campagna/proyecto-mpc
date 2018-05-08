@@ -131,12 +131,24 @@
 
     </div>
 
+
+
     <div class="col-9 row medicine-container" style="padding-right: 0px;">
 
+      <?php if ($presError == "true") { ?>
+          <div class="alert alert-dangerml-5  mt-4 text-center col-9 alert-presc" role="alert">
+              Error el recetar
+          </div>
+      <?php } elseif ($presError == "false") { ?>
+        <div class="alert alert-success mt-4 text-center col-9 alert-presc ml-5" role="alert">
+            Se ha añadido la receta correctamente
+        </div>
+
+      <?php } ?>
 
         <?php foreach ($data['medicines'] as $medicine) { ?>
 
-            <div class="card mb-5 col-3 ml-5 card-medicines ">
+            <div class="card mb-5 mx-5 col-xl-3 col-lg-4 col-md-4  card-medicines ">
                 <img class="card-img-top" src="<?php echo $medicine['url'] ?>" style="width:70%">
                 <div class="card-block">
                     <h4 class="card-title"><?php echo $medicine['nombre'] ?></h4>
@@ -149,8 +161,8 @@
                     <div class="card-text">
                         <?php echo $medicine['efecto'] ?>
                     </div>
-                    <form action="index.php?action=addPresciption" method="post">
-                    <div class="collapse mt-2" id="collapseExample<?php echo $medicine['id'] ?>" name="<?php echo $medicine['id'] ?>">
+                    <form action="index.php?action=addPresciption&id=<?php echo $medicine['id'] ?>" method="post">
+                    <div class="collapse mt-2" id="collapseExample<?php echo $medicine['id'] ?>">
                         <div class="card card-body">
                             <div class="meta">
                                 <span class="mt-2">Efecto Secundario</span>
@@ -160,12 +172,12 @@
                         <div class="row mt-4">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Cantidad" name="quantity">
+                                    <input type="number" class="form-control"  placeholder="Cantidad" name="quantity">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-check mt-2">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <input type="checkbox" class="form-check-input" value="y" name="chronic">
                                     <label class="form-check-label" for="exampleCheck1">Medicamento crónico</label>
                                 </div>
                             </div>
@@ -178,7 +190,7 @@
 
                         <div class="form-group">
                             <label for="usr">Número de chip:</label>
-                            <input type="text" class="form-control" id="usr">
+                            <input type="text" class="form-control" name="chip">
                         </div>
                         <button name="id" type="submit" class="btn btn-outline-danger float-right btn-sm" data-toggle="collapse" data-target="#collapseExample">Confirmar receta</button>
 
