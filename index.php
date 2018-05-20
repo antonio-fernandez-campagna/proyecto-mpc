@@ -12,6 +12,7 @@ $homeController = new home_controller();
 $login_controller = new login_controller();
 $pets_controller = new pets_controller();
 $prescriptions_controller = new prescriptions_controller();
+$mecicines_controller = new medicines_controller();
 
 if (isset($_GET['action'])) {
 
@@ -51,12 +52,14 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == "edit") {
         $pets_controller->edit_pet_view();
     }
-    
-    if ($_GET['action'] == "edit_pet"){
+
+    if ($_GET['action'] == "edit_pet") {
         $pets_controller->edit_pet();
     }
-    
 
+    if ($_GET['action'] == "graph") {
+        $mecicines_controller->medicine_graph();
+    }
 } else {
     $homeController = new home_controller();
     $homeController->view();

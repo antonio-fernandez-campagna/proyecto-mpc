@@ -24,7 +24,7 @@ class medicines_model {
                 . "adm.administramiento, img.url, lab.marca FROM medicamento med, medicamento_nombre medN, categoria_medicamento cat, efecto_medicamento efe, "
                 . "efectos_secundarios efeSec, administramiento_medicamento adm, imagenes img, laboratorio lab where med.nombre = medN.id AND med.categoria = cat.id AND"
                 . " med.efecto = efe.id AND med.efecto_secundario = efeSec.id AND med.administramiento = adm.id AND med.imagen = img.id AND med.marca = lab.id";
-        
+
         $consulta = $this->db->query($query);
         while ($filas = $consulta->fetch_assoc()) {
             $this->medicines[] = $filas;
@@ -80,8 +80,8 @@ class medicines_model {
         }
         return $this->medicines;
     }
-    
-      public function get_name_medicine($medicine) {
+
+    public function get_name_medicine($medicine) {
         $query = "SELECT med.id, medN.nombre, cat.nombre as categoria, efe.efecto, efeSec.efecto_secundario, adm.administramiento, 
             img.url, lab.marca FROM medicamento med, medicamento_nombre medN, categoria_medicamento cat, efecto_medicamento efe, 
             efectos_secundarios efeSec, administramiento_medicamento adm, imagenes img, laboratorio lab
@@ -94,7 +94,26 @@ class medicines_model {
         }
         return $this->medicines;
     }
-    
-    
+
+    public function get_medicine_graphics($cat) {
+        $query = "SELECT m.nombre as id_medicamento, m.categoria as id_categoria, mn.nombre as nombre_medicamento, c.nombre as nombre_categoria from "
+                . "medicamento m, medicamento_nombre mn, categoria_medicamento c WHERE m.nombre = mn.id and m.categoria = c.id and c.id = {$cat}";
+
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->medicines[] = $filas;
+        }
+        return $this->medicines;
+    }
+
+    public function get_graph($idMed) {
+        $query = "select count(*) as cnt, date(fechaReceta) as fecha, medicamento as id_medicamento from recetas WHERE medicamento = {$idMed} group by fecha order by fechaReceta ASC";
+
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->medicines[] = $filas;
+        }
+        return $this->medicines;
+    }
 
 }

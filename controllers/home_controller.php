@@ -32,6 +32,7 @@ class home_controller {
 
             if (!empty($_SESSION['user']) && $_SESSION['userType'] == "proveedor") {
                 require_once("views/lab_view.phtml");
+                  
             }
 
             if (!empty($_SESSION['user']) && $_SESSION['userType'] == "distribuidor") {

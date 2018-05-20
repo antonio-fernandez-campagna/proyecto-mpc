@@ -4,7 +4,6 @@
 require_once("models/medicines_model.php");
 require_once("controllers/medicines_controller.php");
 
-
 // clase que controla aádir productos, la vista de productos (la del buscador o por subcategorias), y se mostrarán las categorias
 class medicines_controller {
 
@@ -17,7 +16,7 @@ class medicines_controller {
         $medicines = $med->get_all_medicines();
         $data['species'] = $med->get_species();
 
-        
+
         $data['medicines'] = [];
 
         foreach ($medicines as $med) {
@@ -59,14 +58,54 @@ class medicines_controller {
 
         return $administration;
     }
-    
-    function name_medicine($medicine){
-        
+
+    function name_medicine($medicine) {
+
         $med = new medicines_model();
-        
-        $data['medicines'] = $med->get_name_medicine($medicine); 
-        
+
+        $data['medicines'] = $med->get_name_medicine($medicine);
+
         return $data['medicines'];
+    }
+
+    function medicines_name_graphic() {
+
+        $med = new medicines_model();
+
+        $medicines = $med->get_medicine_graphics();
+        $out = [];
+
+        foreach ($medicines as $m) {
+            array_push($out, $m->nombre_medicamento);
+        }
+
+        return implode(',', $out);
+    }
+
+    function medicine_graph() {
+
+        $med = new medicines_model();
+
+        $idMed = $_GET['medId'];
+ $idMed = 1;   //todo remove this
+        $prescription = $med->get_graph($idMed);
+        $out = [];
+        //echo "<pre>".print_r($prescription, 1)."</pre>";
+
+         if(array_key_exists('0', $prescription) && !empty($prescription)){
+             foreach($prescription as $m){
+                  $out[] = "[".strtotime($m['fecha']).",".$m['cnt']."]" ;
+             }
+         }else{
+             $out[] = "[".time().",0]" ;
+             //$out[time()] = 0;
+         }
+
+         echo "[".implode(",",$out)."]"; die;
+
+       /*echo "<pre>".print_r($out, 1)."</pre>";
+        die;
+        echo json_encode($out, 1);*/
     }
 
 }
