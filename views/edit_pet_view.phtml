@@ -41,24 +41,23 @@
         <th scope="col">chip</th>
         <th scope="col">Dni propietario</th>
         <th scope="col"></th>
-        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
         <?php foreach ($data['pets'] as $pet){ ?>
       <tr>
-        <td><?php echo $pet['nombre'] ?></td>
-        <td><?php echo $pet['especie'] ?></td>
-        <td><?php echo $pet['age'] ?></td>
-        <td><?php echo $pet['peso'] ?></td>
-        <td><?php echo $pet['sexo'] ?></td>
-        <td><?php echo $pet['nombre_medicamento'] ?></td>
-        <td><?php echo $pet['observacion'] ?></td>
-        <td><?php echo $pet['chip'] ?></td>
-        <td><?php echo $pet['dni_propietario'] ?></td>
-        <td><a href="index.php?action=edit&pet=<?php echo $pet['id']?>">Editar</a></td>
-        <td>Recetar</td>
-
+        <form action="index.php?action=edit_pet&pet=<?php echo $pet['id'] ?>" method="post">
+          <th><input class="" type="text" name="name" value="<?php echo $pet['nombre'] ?>"></th>
+          <td><?php echo $pet['especie'] ?></td>
+          <td><?php echo $pet['age'] ?></td>
+          <td><input class="" type="number" name="weight" value="<?php echo $pet['peso'] ?>"></td>
+          <td><?php echo $pet['sexo'] ?></td>
+          <td><?php echo $pet['nombre_medicamento'] ?></td>
+          <td><?php echo $pet['observacion'] ?></td>
+          <td><?php echo $pet['chip'] ?></td>
+          <td><input class="" type="text" name="dni" value="<?php echo $pet['dni_propietario'] ?>"></td>
+          <td><input type="submit" value="aceptar"></td>
+        </form>
       </tr>
       <?php } ?>
 

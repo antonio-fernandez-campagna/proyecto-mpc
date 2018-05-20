@@ -41,6 +41,7 @@ class home_controller {
             require_once("views/home_view.phtml");
         }
     }
+    
 
 }
 

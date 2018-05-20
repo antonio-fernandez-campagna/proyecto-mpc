@@ -40,7 +40,7 @@
 
                         <!-- Search form -->
                         <div class="input-group mb-3">
-                          <form class="form-inline" action="index.php?action=searchPetDni" method="post">
+                          <form class="form w-100" action="index.php?action=searchPet" method="post">
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="Buscar por DNI" aria-label="Search term" aria-describedby="basic-addon" name="dni">
                             <div class="input-group-append">
@@ -53,10 +53,10 @@
 
                         <!-- Search form -->
                         <div class="input-group mb-3" >
-                          <form class="form-inline" action="index.php?action=searchPetDni" method="post">
-                            <input type="text" class="form-control" placeholder="Buscar por CHIP" aria-label="Search term" aria-describedby="basic-addon">
+                          <form class="form-inline w-100" action="index.php?action=searchPet" method="post">
+                            <input type="text" class="form-control" placeholder="Buscar por CHIP" aria-label="Search term" aria-describedby="basic-addon" name="chip">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-success" type="button">Buscar</button>
+                                <button class="btn btn-outline-success" type="submit">Buscar</button>
                             </div>
                           </form>
                         </div>
@@ -75,7 +75,7 @@
 
                                 <div class="funkyradio-danger">
 
-                                    <input type="checkbox" name="checkbox" id="checkboxPet<?php echo $spec['id']; ?>" />
+                                    <input type="checkbox" class="filterProduct" name="checkbox" id="checkboxPet<?php echo $spec['id']; ?>" />
                                     <label for="checkboxPet<?php echo $spec['id']; ?>"><?php echo $spec['especie']; ?></label>
 
                                 </div>
@@ -94,7 +94,7 @@
 
                                 <div class="funkyradio-danger">
 
-                                    <input type="checkbox" name="checkbox" id="checkboxCateg<?php echo $category['id']; ?>" />
+                                    <input type="checkbox" class="filterProduct" name="checkbox" id="checkboxCateg<?php echo $category['id']; ?>" />
                                     <label for="checkboxCateg<?php echo $category['id']; ?>"><?php echo $category['nombre']; ?></label>
 
                                 </div>
@@ -136,7 +136,7 @@
     <div class="col-9 row medicine-container" style="padding-right: 0px;">
 
       <?php if ($presError == "true") { ?>
-          <div class="alert alert-dangerml-5  mt-4 text-center col-9 alert-presc" role="alert">
+          <div class="alert alert-danger ml-5  mt-4 text-center col-9 alert-presc" role="alert">
               Error el recetar
           </div>
       <?php } elseif ($presError == "false") { ?>
@@ -148,15 +148,15 @@
 
         <?php foreach ($data['medicines'] as $medicine) { ?>
 
-            <div class="card mb-5 mx-5 col-xl-3 col-lg-4 col-md-4  card-medicines ">
+            <div class="card mb-5 mx-5 col-xl-3 col-lg-4 col-md-4  card-medicines">
                 <img class="card-img-top" src="<?php echo $medicine['url'] ?>" style="width:70%">
                 <div class="card-block">
                     <h4 class="card-title"><?php echo $medicine['nombre'] ?></h4>
                     <div class="meta">
-                        <span data-toggle="modal" href="#modal"><?php echo $medicine['categoria'] ?></span>
+                        <span data-toggle="modal" href="#modal" class="categoria" id="checkboxCateg<?php echo $medicine['id_cat']; ?>"><?php echo $medicine['categoria'] ?></span>
                     </div>
                     <div class="meta">
-                        <span data-toggle="modal" href="#modal"><?php echo $medicine['administramiento'] ?></span>
+                        <span data-toggle="modal" href="#modal" class="administramiento" id="checkboxAdm<?php echo $medicine['id_adm']; ?>"><?php echo $medicine['administramiento'] ?></span>
                     </div>
                     <div class="card-text">
                         <?php echo $medicine['efecto'] ?>

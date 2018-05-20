@@ -116,8 +116,31 @@ class pets_model {
     }
 
     public function get_pet_dni($dni) {
-        $query = "select m.*, a.especie, r.medicamento, r.observacion from mascota m, recetas r, animales a where m.dni_propietario = '{$dni}' and "
-                . "a.especie = m.especie and r.cronico = 'y'";
+        $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, med_nom.nombre as nombre_medicamento , TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age "
+                . "from mascota m, recetas r, animales a, medicamento_nombre med_nom where m.dni_propietario = '{$dni}' and "
+                . "a.id = m.especie and r.cronico = 'y' and med_nom.id = r.medicamento";
+
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->species[] = $filas;
+        }
+        return $this->species;
+    }
+
+    public function get_pet_chip($chip) {
+        $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, med_nom.nombre as nombre_medicamento , TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age "
+                . "from mascota m, recetas r, animales a, medicamento_nombre med_nom where a.id = m.especie and r.cronico = 'y' and med_nom.id = r.medicamento and m.chip = {$chip}";
+
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->species[] = $filas;
+        }
+        return $this->species;
+    }
+
+    public function get_pet_from_id($id) {
+        $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, med_nom.nombre as nombre_medicamento , TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age "
+                . "from mascota m, recetas r, animales a, medicamento_nombre med_nom where a.id = m.especie and r.cronico = 'y' and med_nom.id = r.medicamento and m.id = {$id}";
 
         $consulta = $this->db->query($query);
         while ($filas = $consulta->fetch_assoc()) {
@@ -134,6 +157,18 @@ class pets_model {
         $this->petId = $filas;
 
         return $this->petId;
+    }
+
+    public function set_pet($id_pet) {
+        $sql = "UPDATE mascota SET nombre= '{$this->name}', peso={$this->weight}, dni_propietario='{$this->dniProp}' WHERE id = {$id_pet} ";
+
+        $consulta = $this->db->query($sql);
+
+        if ($this->db->error)
+            return "$consulta<br>{$this->db->error}";
+        else {
+            return false;
+        }
     }
 
 }

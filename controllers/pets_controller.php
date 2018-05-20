@@ -44,13 +44,49 @@ class pets_controller {
         $this->add_view($error);
     }
 
-    function pet_dni_view() {
+    function pet_view($id_pet = "") {
         $pets_model = new pets_model();
-        $dni = $_POST['dni'];
-        
-        $data['pets'] = $pets_model->get_pet_dni($dni);
-        echo "<pre>".print_r($data['pets'], 1)."</pre>";
+
+        if (!empty($_POST['dni'])) {
+            $dni = $_POST['dni'];
+            $data['pets'] = $pets_model->get_pet_dni($dni);
+        } elseif (!empty($_POST['chip'])) {
+            $chip = $_POST['chip'];
+            $data['pets'] = $pets_model->get_pet_chip($chip);
+        } elseif (empty($_POST['chip']) && empty($_POST['dni']) && $id_pet != "") {
+            $data['pets'] = $pets_model->get_pet_from_id($id_pet);
+        }
+
+        $pet_view = "yes";
+
         include 'views/petVet_view.phtml';
+    }
+
+    function edit_pet_view() {
+        $pets_model = new pets_model();
+        $id = $_GET['pet'];
+
+        $data['pets'] = $pets_model->get_pet_from_id($id);
+        $pet_view = "yes";
+
+        include 'views/edit_pet_view.phtml';
+    }
+
+    function edit_pet() {
+        $pets_model = new pets_model();
+        $conexion = $pets_model->db;
+        $id_pet = $_GET['pet'];
+
+        $name = mysqli_real_escape_string($conexion, $_POST['name']);
+        $dniProp = mysqli_real_escape_string($conexion, $_POST['dni']);
+        $weight = mysqli_real_escape_string($conexion, $_POST['weight']);
+
+        $pets_model->setName($name);
+        $pets_model->setDniProp($dniProp);
+        $pets_model->setWeight($weight);
+
+        $pets_model->set_pet($id_pet);
+        $this->pet_view();
     }
 
 }

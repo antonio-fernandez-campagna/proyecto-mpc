@@ -1,4 +1,35 @@
 jQuery(document).ready(function () {
+
+        $(".filterProduct").change(function () {
+      // si la clase filterProduct tiene la clase "activated" se la quita, sino, se la pone
+        if ($(this).hasClass("activated")) {
+            $(this).removeClass("activated");
+        } else {
+          $(this).addClass("activated");
+        }
+
+        $category = [];
+
+        // los que tienen la clase "activated" los pondrá en un array
+        $(".activated").each(function () {
+
+            $category.push($(this).attr("id"));
+        });
+
+        // función para filtrar y recoger los valores de los precios
+        $(".card").each(function () {
+
+              // si hay algo en el array de marcas y el id del card no está en el array lo esconde, sino, lo muestra
+              if ($category.length && jQuery.inArray($(this).find(".categoria").attr("id"), $category) === -1) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+
+    });
+
+
     function close_accordion_section() {
         jQuery('.accordion .accordion-section-title').removeClass('active');
         jQuery('.accordion .accordion-section-content').slideUp(300).removeClass('open');

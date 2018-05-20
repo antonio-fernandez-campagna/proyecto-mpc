@@ -40,14 +40,23 @@ if (isset($_GET['action'])) {
         $pets_controller->add_pet();
     }
 
-    if ($_GET['action'] == "searchPetDni") {
-        $pets_controller->pet_dni_view();
+    if ($_GET['action'] == "searchPet") {
+        $pets_controller->pet_view();
     }
-    
-    if ($_GET['action'] == "addPresciption"){
+
+    if ($_GET['action'] == "addPresciption") {
         $prescriptions_controller->add_prescription();
     }
+
+    if ($_GET['action'] == "edit") {
+        $pets_controller->edit_pet_view();
+    }
     
+    if ($_GET['action'] == "edit_pet"){
+        $pets_controller->edit_pet();
+    }
+    
+
 } else {
     $homeController = new home_controller();
     $homeController->view();
