@@ -67,12 +67,10 @@ jQuery(document).ready(function () {
                     success: function (response)
                     {
                         medicines = $.parseJSON(response);
-                        console.log(medicines);
 
                         $('.card-medicines').remove();
 
                         var html = process_data(medicines);
-                        //console.log(html);
 
                         $('.medicine-container').append(html);
                     }
@@ -116,7 +114,9 @@ medicines.forEach(function(medicine){
                 + medicine.nombre
                 +"</h4>"
                 + "<div class='meta'>"
-                + "<a data-toggle='modal' href='#modal'>categoria aqui></a>"
+                + "<a data-toggle='modal' href='#modal'>"
+                + medicine.categoria
+                + "</a>"
                 + "</div>"
                 + "<div class='card-text'>"
                  + medicine.efecto
@@ -132,7 +132,7 @@ medicines.forEach(function(medicine){
                 + "<div class='row mt-4'>"
                 + "<div class='col-6'>"
                 + "<div class='form-group'>"
-                + "<input type='number' class='form-control' id='exampleInputPassword1' placeholder='Cantidad de cajas'>"
+                + "<input type='number' class='form-control' id='exampleInputPassword1' placeholder='Cantidad'>"
                 + "</div>"
                 + "</div>"
                 + "<div class='col-6'>"

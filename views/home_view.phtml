@@ -5,11 +5,13 @@
       <meta charset="utf-8">
       <title>MY PET CARD</title>
       <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script type="text/javascript" src="views/accordion.js"></script>
       <link rel="stylesheet" href="views/css.css">
 
       <link rel="stylesheet"   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+    <!--  <script src='https://www.google.com/recaptcha/api.js?hl=es'></script> -->
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
@@ -67,6 +69,14 @@
       <form class="login-container" action="index.php?action=login" method="post">
         <p><input type="text" name="username" placeholder="username" autocomplete="off"></p>
         <p><input type="password" name="password" placeholder="Password" autocomplete="off"></p>
+      <!--<div class="g-recaptcha" data-sitekey="6LfoTFwUAAAAAHLU-wIipNaqppNqHQ0MquEuxF5a"></div> -->
+      <?php if (!empty($errorLogin) && $errorLogin == "yes") { ?>
+        <div class="container">
+          <div class="alert alert-danger">
+          Usuario o contrasña incorrectos
+          </div>
+        </div>
+      <?php } ?>
         <p><input type="submit" value="Log in"></p>
       </form>
     </div>

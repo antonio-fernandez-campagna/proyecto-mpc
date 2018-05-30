@@ -49,17 +49,21 @@ class pets_controller {
 
         if (!empty($_POST['dni'])) {
             $dni = $_POST['dni'];
-            $data['pets'] = $pets_model->get_pet_dni($dni);
+            $data['pets'] = $pets_model->get_info_pet_dni($dni);
         } elseif (!empty($_POST['chip'])) {
             $chip = $_POST['chip'];
-            $data['pets'] = $pets_model->get_pet_chip($chip);
-        } elseif (empty($_POST['chip']) && empty($_POST['dni']) && $id_pet != "") {
-            $data['pets'] = $pets_model->get_pet_from_id($id_pet);
-        }
+            $data['pets'] = $pets_model->get_info_pet_chip($chip);
+            $pet_view = "yes";
+            echo "<pre>".print_r($data['pets'], 1)."</pre>";
+            include 'views/pet_prescribe_view.phtml';
+            return true;
+         } elseif (empty($_POST['chip']) && empty($_POST['dni']) && $id_pet != "") {
+             $data['pets'] = $pets_model->get_pet_from_id($id_pet);
+         }
 
         $pet_view = "yes";
 
-        include 'views/petVet_view.phtml';
+        include 'views/pet_info_view.phtml';
     }
 
     function edit_pet_view() {
@@ -87,6 +91,37 @@ class pets_controller {
 
         $pets_model->set_pet($id_pet);
         $this->pet_view();
+    }
+
+    function pet_modify_view(){
+      include 'views/pet_modify_view.phtml';
+    }
+
+    function pet_modify() {
+      $pets_model = new pets_model();
+
+      if (!empty($_POST['dni'])) {
+          $dni = $_POST['dni'];
+          $data['pets'] = $pets_model->get_pet_dni($dni);
+      } elseif (!empty($_POST['chip'])) {
+          $chip = $_POST['chip'];
+          $data['pets'] = $pets_model->get_pet_chip($chip);
+      } elseif (empty($_POST['chip']) && empty($_POST['dni']) && $id_pet != "") {
+          $data['pets'] = $pets_model->get_pet_from_id($id_pet);
+      }
+
+      $pet_view = "yes";
+
+      include 'views/petVet_view.phtml';
+    }
+
+    function prescribe_view(){
+      $pets_model = new pets_model();
+      $chip = $_GET['pet'];
+
+      $pets_model->get_info_pet_chip($chip);
+
+      include 'views/pet_prescribe_view.phtml';
     }
 
 }

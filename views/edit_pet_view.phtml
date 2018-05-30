@@ -30,6 +30,7 @@
 
   <table class="table table-striped table-light mt-2 ml-2 ">
     <thead class="mb-4">
+      <?php if (!empty($data['pets']['medicamento'])){ ?>
       <tr>
         <th scope="col">Nombre</th>
         <th scope="col">Especie</th>
@@ -42,8 +43,20 @@
         <th scope="col">Dni propietario</th>
         <th scope="col"></th>
       </tr>
+    <?php } else { ?>
+      <th scope="col">Nombre</th>
+      <th scope="col">Especie</th>
+      <th scope="col">Edad</th>
+      <th scope="col">Peso</th>
+      <th scope="col">sexo</th>
+      <th scope="col">chip</th>
+      <th scope="col">Dni propietario</th>
+      <th scope="col"></th>
+    <?php } ?>
+
     </thead>
     <tbody>
+      <?php if (!empty($data['pets']['medicamento'])){ ?>
         <?php foreach ($data['pets'] as $pet){ ?>
       <tr>
         <form action="index.php?action=edit_pet&pet=<?php echo $pet['id'] ?>" method="post">
@@ -60,7 +73,21 @@
         </form>
       </tr>
       <?php } ?>
+    <?php } else { ?>
+      <?php foreach ($data['pets'] as $pet){ ?>
+        <tr>
+          <th><input class="" type="text" name="name" value="<?php echo $pet['nombre'] ?>"></th>
+          <td><?php echo $pet['especie'] ?></td>
+          <td><?php echo $pet['age'] ?></td>
+          <td><input class="" type="number" name="weight" value="<?php echo $pet['peso'] ?>"></td>
+          <td><?php echo $pet['sexo'] ?></td>
+          <td><?php echo $pet['chip'] ?></td>
+          <td><input class="" type="text" name="dni" value="<?php echo $pet['dni_propietario'] ?>"></td>
+          <td><input type="submit" value="aceptar"></td>
+        </tr>
 
+        <?php } ?>
+      <?php } ?>
     </tbody>
   </table>
 
