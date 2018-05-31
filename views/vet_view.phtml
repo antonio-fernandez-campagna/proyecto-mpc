@@ -29,13 +29,6 @@
     </div>
 </nav>
 
-<?php if (!empty($showDeletePet) && $showDeletePet == true){ ?>
-  <div class="col-6 mx-auto mt-4">
-    <div class="alert alert-success text-center  row justify-content-center align-self-center" role="alert">
-     Mascota eliminada correctamente
-   </div>
- </div>
-<?php } ?>
 
 <div class="mt-4 container-meds mr-0 ml-2 row">
 
@@ -45,6 +38,11 @@
             <div class="alert alert-danger text-center" role="alert">
               <strong>¡Error!</strong> DNI o CHIP no existe
             </div>
+          <?php } ?>
+          <?php if (!empty($showDeletePet) && $showDeletePet == true){ ?>
+              <div class="alert alert-success text-center" role="alert">
+               Mascota eliminada correctamente
+             </div>
           <?php } ?>
 
             <div class="accordion acc-searcher">
