@@ -28,9 +28,9 @@
     </div>
   </nav>
 
-  <table class="table table-striped table-light mt-2 ml-2 ">
+  <table class="table table-striped table-light mt-2 ml-2 mt-4">
     <thead class="mb-4">
-      <?php if (!empty($data['pets'][0]['medicamento'])){ ?>
+      <?php if (array_key_exists('medicamento', $data['pets'][0])){ ?>
       <tr>
         <th scope="col">Nombre</th>
         <th scope="col">Especie</th>
@@ -41,7 +41,6 @@
         <th scope="col">Comentario</th>
         <th scope="col">chip</th>
         <th scope="col">Dni propietario</th>
-        <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
       </tr>
@@ -59,7 +58,7 @@
     <?php } ?>
     </thead>
     <tbody>
-      <?php if (!empty($data['pets']['medicamento'])){ ?>
+      <?php if (array_key_exists('medicamento', $data['pets'][0])){ ?>
         <?php foreach ($data['pets'] as $pet){ ?>
       <tr>
         <td><?php echo $pet['nombre'] ?></td>
@@ -71,8 +70,8 @@
         <td><?php echo $pet['observacion'] ?></td>
         <td><?php echo $pet['chip'] ?></td>
         <td><?php echo $pet['dni_propietario'] ?></td>
-        <td><a href="index.php?action=edit&pet=<?php echo $pet['id']?>">Editar</a></td>
-        <td>Recetar</td>
+        <td><a href="index.php?action=edit&pet=<?php echo $pet['chip']?>">Editar</a></td>
+        <td><a href="index.php?action=edit&pet=<?php echo $pet['chip']?>">Recetar a pag</a></td>
 
       </tr>
       <?php } ?>
@@ -83,13 +82,12 @@
         <td><?php echo $pet['especie'] ?></td>
         <td><?php echo $pet['age'] ?></td>
         <td><?php echo $pet['peso'] ?></td>
-        <td>No tiene medicamentos crónicos recetados</td>
         <td><?php echo $pet['sexo'] ?></td>
+        <td>No tiene medicamentos crónicos recetados</td>
         <td><?php echo $pet['chip'] ?></td>
         <td><?php echo $pet['dni_propietario'] ?></td>
-        <td><a href="index.php?action=edit&pet=<?php echo $pet['id']?>">Editar</a></td>
-        <td>Recetar</td>
-        <td>Eliminar</td>
+        <td><a href="index.php?action=edit&pet=<?php echo $pet['chip']?>">Editar</a></td>
+        <td><a href="index.php?action=edit&pet=<?php echo $pet['chip']?>">Recetar a pag</a></td>
       </tr>
 
       <?php } ?>

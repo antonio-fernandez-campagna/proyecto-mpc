@@ -6,7 +6,7 @@ require_once 'controllers/categories_controller.php';
 class home_controller {
 
     // Función que muestra la página principal
-    function view($userCat = "", $medName = "", $presError = "", $loginFailed = "") {
+    function view($userCat = "", $medName = "", $presError = "", $loginFailed = "", $errorSearch = "", $showDeletePet = "") {
 
         if ($loginFailed === false) {
           $errorLogin = "yes";
@@ -46,6 +46,11 @@ class home_controller {
         } else {
             require_once("views/home_view.phtml");
         }
+    }
+
+    function error_search_view(){
+      $error_searchc = true;
+      require_once("views/vet_view.phtml");
     }
 
 

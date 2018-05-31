@@ -103,9 +103,18 @@ class pets_model {
     }
 
     public function add_pet() {
+
+      if(empty($this->dniProp)){
+        $query = "INSERT INTO mascota (especie, sexo, fechanac, chip, nombre, peso)
+                    VALUES ({$this->specie},'{$this->sex}', '{$this->birthDate}', {$this->chip},
+                    '{$this->name}',{$this->weight})";
+      } else {
         $query = "INSERT INTO mascota (especie, sexo, fechanac, dni_propietario, chip, nombre, peso)
                     VALUES ({$this->specie},'{$this->sex}', '{$this->birthDate}', '{$this->dniProp}',{$this->chip},
                     '{$this->name}',{$this->weight})";
+      }
+
+
 
         $result = $this->db->query($query);
         if ($this->db->error)
@@ -194,8 +203,8 @@ class pets_model {
         return $this->petId;
     }
 
-    public function set_pet($id_pet) {
-        $sql = "UPDATE mascota SET nombre= '{$this->name}', peso={$this->weight}, dni_propietario='{$this->dniProp}' WHERE id = {$id_pet} ";
+    public function set_pet($id_chip) {
+        $sql = "UPDATE mascota SET nombre= '{$this->name}', peso={$this->weight}, dni_propietario='{$this->dniProp}' WHERE chip = {$id_chip} ";
 
         $consulta = $this->db->query($sql);
 
@@ -223,13 +232,15 @@ class pets_model {
 
     public function get_info_pet_chip($chip) {
 
-      $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, r.cronico, med_nom.nombre as nombre_medicamento , TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age "
-              . "from mascota m, recetas r, animales a, medicamento_nombre med_nom where a.id = m.especie and med_nom.id = r.medicamento and m.chip = {$chip} and r.cronico = 'y'";
+      $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, r.id as id_medicamento, r.cronico, med_nom.nombre as nombre_medicamento , TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age "
+              . "from mascota m, recetas r, animales a, medicamento_nombre med_nom where a.id = m.especie and med_nom.id = r.medicamento and m.chip = {$chip} and r.cronico = 'y' and r.mascota = m.id";
+
+
 
       $consulta = $this->db->query($query);
 
-
       if ($consulta->num_rows == 0) {
+
 
         $query = "select DISTINCT m.*, a.especie, TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age from mascota m, animales a where a.id = m.especie and m.chip = {$chip}";
                 $consulta = $this->db->query($query);
@@ -248,5 +259,44 @@ class pets_model {
         return $this->species;
       }
     }
+
+    public function delete_prescription($idPrescription) {
+
+      $sql = "DELETE from recetas WHERE id = {$idPrescription}";
+
+      $result = $this->db->query($sql);
+      if ($this->db->error)
+          return "$sql<br>{$this->db->error}";
+      else {
+          return false;
+      }
+  }
+
+  public function delete_all_prescriptions_from_pet($idPet) {
+
+    $sql = "DELETE from recetas where medicamento = {$idPet}";
+
+    $result = $this->db->query($sql);
+    if ($this->db->error)
+        return "$sql<br>{$this->db->error}";
+    else {
+        return false;
+    }
+}
+
+
+  public function delete_pet($idPet) {
+
+    $this->delete_all_prescriptions_from_pet($idPet);
+
+    $sql = "DELETE from mascota where id = {$idPet}";
+
+    $result = $this->db->query($sql);
+    if ($this->db->error)
+        return "$sql<br>{$this->db->error}";
+    else {
+        return false;
+    }
+}
 
 }

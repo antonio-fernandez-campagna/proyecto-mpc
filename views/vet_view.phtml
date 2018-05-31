@@ -29,12 +29,23 @@
     </div>
 </nav>
 
-
+<?php if (!empty($showDeletePet) && $showDeletePet == true){ ?>
+  <div class="col-6 mx-auto mt-4">
+    <div class="alert alert-success text-center  row justify-content-center align-self-center" role="alert">
+     Mascota eliminada correctamente
+   </div>
+ </div>
+<?php } ?>
 
 <div class="mt-4 container-meds mr-0 ml-2 row">
 
     <div class=" col-3">
         <div class="main">
+          <?php if (!empty($errorSearch) && $errorSearch == true){ ?>
+            <div class="alert alert-danger text-center" role="alert">
+              <strong>¡Error!</strong> DNI o CHIP no existe
+            </div>
+          <?php } ?>
 
             <div class="accordion acc-searcher">
                 <div class="accordion-section">
@@ -57,7 +68,7 @@
                         <!-- Search form -->
                         <div class="input-group mb-3" >
                           <form class="form-inline w-100" action="index.php?action=searchPet" method="post">
-                            <input type="text" class="form-control" placeholder="Buscar por CHIP" aria-label="Search term" aria-describedby="basic-addon" name="chip">
+                            <input type="number" class="form-control" placeholder="Buscar por CHIP" aria-label="Search term" aria-describedby="basic-addon" name="chip">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-success" type="submit">Buscar</button>
                             </div>
