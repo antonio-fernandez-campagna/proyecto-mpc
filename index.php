@@ -60,6 +60,11 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == "graph") {
         $mecicines_controller->medicine_graph();
     }
+
+    if ($_GET['action'] == "generarRecetas") {
+        $prescriptions_controller->generar_recetas();
+    }
+    
 } else {
     $homeController = new home_controller();
     $homeController->view();

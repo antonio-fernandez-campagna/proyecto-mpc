@@ -92,4 +92,37 @@ class prescriptions_model {
         }
     }
 
+    public function add_prescriptions_script() {
+
+        $id_med = 17;
+        
+        $min = 1;
+        $max = 100;
+        $quantity = rand($min, $max);
+
+        // la fecha de hace un año
+        $time = strtotime("-1 year", time());
+        $date = date("Y-m-d", $time);
+        
+        // la fecha de ahora
+        $dateNow = date("Y-m-d");
+        
+        while($date != $dateNow){
+            $query = "INSERT INTO recetas (mascota, medicamento, cantidad, observacion, cronico, fechaReceta)
+                    VALUES (6, {$id_med}, {$quantity}, 'obervación prueba del medicamento generado con script', 'n', '{$date}')";
+
+            $result = $this->db->query($query);
+            
+            $date = date('Y-m-d',strtotime($date . "+1 days"));
+        }
+
+        die("no entra");
+        
+        if ($this->db->error)
+            return "true";
+        else {
+            return "false";
+        }
+    }
+
 }

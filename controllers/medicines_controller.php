@@ -85,27 +85,43 @@ class medicines_controller {
     function medicine_graph() {
 
         $med = new medicines_model();
-
-        $idMed = $_GET['medId'];
- $idMed = 1;   //todo remove this
-        $prescription = $med->get_graph($idMed);
+        $catMedicine = $_GET['catMedicine'];
+        
+        $prescription = $med->test_func($catMedicine);
         $out = [];
         //echo "<pre>".print_r($prescription, 1)."</pre>";
-
-         if(array_key_exists('0', $prescription) && !empty($prescription)){
-             foreach($prescription as $m){
-                  $out[] = "[".strtotime($m['fecha']).",".$m['cnt']."]" ;
-             }
-         }else{
-             $out[] = "[".time().",0]" ;
-             //$out[time()] = 0;
-         }
-
-         echo "[".implode(",",$out)."]"; die;
-
-       /*echo "<pre>".print_r($out, 1)."</pre>";
-        die;
-        echo json_encode($out, 1);*/
+        
+        $fechas = array_keys($prescription);
+        $medicinasIds = [];
+        $medicinasNames = [];
+        foreach($prescription as $date => $values){
+            foreach($values as $k=>$m){
+                $medicinasIds[] = $k;
+                $medicinasNames[$k] = $m['nombre'];
+            }
+        }
+        
+        $medicinasIds= array_unique($medicinasIds);
+   
+        $html = '<table border=1 class="highchart" data-graph-container=".. .. .highchart-container" data-graph-type="line">';
+        $html.= '<caption>Column example</caption>';
+        $html.= '<thead><tr><th>Month</th>';
+        foreach($medicinasNames as $mn){
+            $html.= "<th>{$mn}</th>";
+        }
+        $html.= '</tr></thead>';
+        $html.= '<tbody>';
+        foreach($fechas as $d){
+            $html.= "<tr><td>{$d}</td>";
+            foreach($medicinasIds as $m){
+                $val = isset($prescription[$d][$m])?$prescription[$d][$m]['suma']:0;
+                $html.= "<td>{$val}</td>";
+            }
+            $html.= "</tr>";
+        }
+        $html.= '</tbody></table>';
+       
+        return $html;
     }
 
 }

@@ -25,6 +25,8 @@ class home_controller {
             $data['administration'] = $med->all_way_administration();
 
 
+            
+            
             if (!empty($_SESSION['user']) && $_SESSION['userType'] == "veterinario") {
 
                 require_once("views/vet_view.phtml");

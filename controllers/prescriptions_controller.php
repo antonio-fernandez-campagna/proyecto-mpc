@@ -33,5 +33,10 @@ class prescriptions_controller {
         $presError = $prescription_model->add_prescription();
         $home_controller->view("", "", $presError);
     }
-    
+
+    function generar_recetas() {
+        $prescription_model = new prescriptions_model();
+        $prescription_model->add_prescriptions_script();
+    }
+
 }

@@ -100,18 +100,41 @@ class medicines_model {
                 . "medicamento m, medicamento_nombre mn, categoria_medicamento c WHERE m.nombre = mn.id and m.categoria = c.id and c.id = {$cat}";
 
         $consulta = $this->db->query($query);
+        while ($fila = $consulta->fetch_assoc()) {
+            $this->medicines[$fila['id_medicamento']] = $fila;
+        }
+        
+        return $this->medicines;
+    }
+
+    public function get_graph($idMed) {
+        $query = "select count(*) as cnt, CONCAT(YEAR(fechaReceta),'-',MONTH(fechaReceta)) as MonthYear, medicamento as id_medicamento from recetas WHERE medicamento = {$idMed} group by MonthYear order by fechaReceta ASC";
+
+        die($query);
+        
+        $consulta = $this->db->query($query);
         while ($filas = $consulta->fetch_assoc()) {
             $this->medicines[] = $filas;
         }
         return $this->medicines;
     }
-
-    public function get_graph($idMed) {
-        $query = "select count(*) as cnt, date(fechaReceta) as fecha, medicamento as id_medicamento from recetas WHERE medicamento = {$idMed} group by fecha order by fechaReceta ASC";
+    
+    public function test_func($catMedicinas) {
+        $meds = $this->get_medicine_graphics($catMedicinas);
+        $idsMedicinas = [];
+        foreach($meds as $m){
+            $idsMedicinas[] = $m['id_medicamento'];
+        }
+        $idsMedicinas = implode(',',$idsMedicinas);
+        
+        $query = "select medicamento as id_medicamento, SUM(cantidad) as suma, CONCAT(YEAR(fechaReceta),'-',MONTH(fechaReceta)) as MonthYear "
+                . " from recetas WHERE medicamento IN ({$idsMedicinas}) group by MonthYear, id_medicamento order by fechaReceta ASC";
 
         $consulta = $this->db->query($query);
-        while ($filas = $consulta->fetch_assoc()) {
-            $this->medicines[] = $filas;
+        $this->medicines = []; //todo change var name to be used as output storage
+        while ($fila = $consulta->fetch_assoc()) {
+            $this->medicines[$fila['MonthYear']][$fila['id_medicamento']] = ['nombre'=> $meds[$fila['id_medicamento']]['nombre_medicamento'],'suma'=> $fila['suma']];        
+            
         }
         return $this->medicines;
     }
