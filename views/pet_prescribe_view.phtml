@@ -20,13 +20,15 @@
     <input class="form-control mr-sm-2" type="search"  placeholder="Buscar acciones med." aria-label="Search" <?php if($pet_view == "yes"){ ?> disabled <?php } ?> >
   </form>
 
+
+
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2"  type="search" placeholder="Buscar medicamento" aria-label="Search" <?php if($pet_view == "yes"){ ?> disabled <?php } ?>>
       </form>
     </div>
   </nav>
 
-  <table class="table table-striped table-light mt-2 ml-2 ">
+  <table class="table table-striped table-light mt-2 ml-2 mt-4">
     <thead class="mb-4">
       <?php if (array_key_exists('medicamento', $data['pets'][0])){ ?>
       <tr>
@@ -41,7 +43,6 @@
         <th scope="col">Dni propietario</th>
         <th scope="col"></th>
         <th scope="col"></th>
-        <th scope="col"></th>
       </tr>
     <?php } else { ?>
       <th scope="col">Nombre</th>
@@ -49,50 +50,49 @@
       <th scope="col">Edad</th>
       <th scope="col">Peso</th>
       <th scope="col">sexo</th>
+      <th scope="col">Medicamento crónico</th>
       <th scope="col">chip</th>
       <th scope="col">Dni propietario</th>
       <th scope="col"></th>
       <th scope="col"></th>
     <?php } ?>
-
     </thead>
     <tbody>
       <?php if (array_key_exists('medicamento', $data['pets'][0])){ ?>
         <?php foreach ($data['pets'] as $pet){ ?>
       <tr>
-        <form action="index.php?action=edit_pet&pet_chip=<?php echo $pet['chip'] ?>" method="post">
-          <th><input class="" type="text" name="name" value="<?php echo $pet['nombre'] ?>"></th>
-          <td><?php echo $pet['especie'] ?></td>
-          <td><?php echo $pet['age'] ?></td>
-          <td><input class="" type="number" name="weight" value="<?php echo $pet['peso'] ?>"></td>
-          <td><?php echo $pet['sexo'] ?></td>
-          <td><?php echo $pet['nombre_medicamento'] ?></td>
-          <td><?php echo $pet['observacion'] ?></td>
-          <td><?php echo $pet['chip'] ?></td>
-          <td><input class="" type="text" name="dni" value="<?php echo $pet['dni_propietario'] ?>"></td>
-          <td><input type="submit" value="aceptar"></td>
-          <td><a href="index.php?action=deletePrescription&prescription=<?php echo $pet['id_medicamento']?>&&chip=<?php echo $pet['chip']?>">Eliminar receta</a></td>
-          <td><a href="index.php?action=deletePet&pet=<?php echo $pet['id']?>">Eliminar mascota</a></td>
-        </form>
+        <td><?php echo $pet['nombre'] ?></td>
+        <td><?php echo $pet['especie'] ?></td>
+        <td><?php echo $pet['age'] ?></td>
+        <td><?php echo $pet['peso'] ?></td>
+        <td><?php echo $pet['sexo'] ?></td>
+        <td><?php echo $pet['nombre_medicamento'] ?></td>
+        <td><?php echo $pet['observacion'] ?></td>
+        <td><?php echo $pet['chip'] ?></td>
+        <td><?php echo $pet['dni_propietario'] ?></td>
+        <td><a href="index.php?action=edit&pet=<?php echo $pet['chip']?>">Editar</a></td>
+        <td><a href="index.php?action=edit&pet=<?php echo $pet['chip']?>">Recetar a pag</a></td>
+
       </tr>
       <?php } ?>
     <?php } else { ?>
       <?php foreach ($data['pets'] as $pet){ ?>
-        <form action="index.php?action=edit_pet&pet_chip=<?php echo $pet['chip'] ?>" method="post">
-          <tr>
-            <th><input class="" type="text" name="name" value="<?php echo $pet['nombre'] ?>"></th>
-            <td><?php echo $pet['especie'] ?></td>
-            <td><?php echo $pet['age'] ?></td>
-            <td><input class="" type="number" name="weight" value="<?php echo $pet['peso'] ?>"></td>
-            <td><?php echo $pet['sexo'] ?></td>
-            <td><?php echo $pet['chip'] ?></td>
-            <td><input class="" type="text" name="dni" value="<?php echo $pet['dni_propietario'] ?>"></td>
-            <td><input type="submit" value="aceptar"></td>
-            <td><a href="index.php?action=deletePet&pet=<?php echo $pet['id']?>">Eliminar mascota</a></td>
-          </tr>
-        </form>
-        <?php } ?>
+      <tr>
+        <td><?php echo $pet['nombre'] ?></td>
+        <td><?php echo $pet['especie'] ?></td>
+        <td><?php echo $pet['age'] ?></td>
+        <td><?php echo $pet['peso'] ?></td>
+        <td><?php echo $pet['sexo'] ?></td>
+        <td>No tiene medicamentos crónicos recetados</td>
+        <td><?php echo $pet['chip'] ?></td>
+        <td><?php echo $pet['dni_propietario'] ?></td>
+        <td><a href="index.php?action=edit&pet=<?php echo $pet['chip']?>">Editar</a></td>
+        <td><a href="index.php?action=edit&pet=<?php echo $pet['chip']?>">Recetar a pag</a></td>
+      </tr>
+
       <?php } ?>
+    <?php } ?>
+
     </tbody>
   </table>
 

@@ -42,20 +42,41 @@ if (isset($_GET['action'])) {
     }
 
     if ($_GET['action'] == "searchPet") {
-        $pets_controller->pet_view();
+        $result = $pets_controller->pet_view();
+        if ($result == true){
+          $homeController->view("","","","",true);
+        }
     }
+
+    // if ($_GET['action'] == "edit_pet") {
+    //     $pets_controller->pet_modify();
+    // }
 
     if ($_GET['action'] == "addPresciption") {
         $prescriptions_controller->add_prescription();
     }
 
+
     if ($_GET['action'] == "edit") {
         $pets_controller->edit_pet_view();
+    }
+
+    if ($_GET['action'] == "deletePet") {
+        $pets_controller->delete_pet();
+    }
+
+    if ($_GET['action'] == "deletePrescription") {
+        $pets_controller->delete_prescription();
     }
 
     if ($_GET['action'] == "edit_pet") {
         $pets_controller->edit_pet();
     }
+
+    if ($_GET['action'] == "prescribeView") {
+        $pets_controller->prescribe_view();
+    }
+
 
     if ($_GET['action'] == "graph") {
         $mecicines_controller->medicine_graph();

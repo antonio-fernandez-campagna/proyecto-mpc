@@ -2,6 +2,7 @@
 
 require_once("models/login_model.php");
 require_once("controllers/home_controller.php");
+//require_once "recaptchal/ib.php";
 
 // clase que controla el Login, registro y comprueba el estado del cart
 class login_controller {
@@ -17,26 +18,45 @@ class login_controller {
         $user_model->setUsername($user);
         $user_model->setPassword($contrasenya);
 
-        
+
         $userType = $user_model->verifyUser();
 
 
+        // your secret key
+        // $secret = "6LfoTFwUAAAAAHLU-wIipNaqppNqHQ0MquEuxF5a";
+        //
+        // // empty response
+        // $response = null;
+        //
+        // // check secret key
+        // $reCaptcha = new ReCaptcha($secret);
+        //
+        // // if submitted check response
+        // if ($_POST["g-recaptcha-response"]) {
+        //     $response = $reCaptcha->verifyResponse(
+        //         $_SERVER["REMOTE_ADDR"],
+        //         $_POST["g-recaptcha-response"]
+        //     );
+        // }
          // si se ha logeado correctamente muestra la página principal y devuelve true, sino false y mostrará un intento
         // de inicio de sesión fallido
-        
-        if (!empty($userType)) {
-            
+
+        // if (!empty($userType) && $response != null && $response->success) {
+
+        if (!empty($userType)){
             $_SESSION['user'] = $user;
-  
+
             $_SESSION['userType'] = $userType["tipo_usuario"];
-            
-                      
+
+
             $home = new home_controller();
-            $home->view($_SESSION['userType']);
+            $_SESSION['userType'];
+            $home->view();
 
             return true;
         } else {
-            return false;
+            $home = new home_controller();
+            $home->view("","","",false);
         }
     }
 

@@ -6,7 +6,12 @@ require_once 'controllers/categories_controller.php';
 class home_controller {
 
     // Función que muestra la página principal
-    function view($userCat = "", $medName = "", $presError = "") {
+    function view($userCat = "", $medName = "", $presError = "", $loginFailed = "", $errorSearch = "", $showDeletePet = "") {
+
+        if ($loginFailed === false) {
+          $errorLogin = "yes";
+          require_once("views/home_view.phtml");
+        }
 
         if (!empty($_SESSION['user'])) {
 
@@ -34,7 +39,7 @@ class home_controller {
 
             if (!empty($_SESSION['user']) && $_SESSION['userType'] == "proveedor") {
                 require_once("views/lab_view.phtml");
-                  
+
             }
 
             if (!empty($_SESSION['user']) && $_SESSION['userType'] == "distribuidor") {
@@ -44,7 +49,12 @@ class home_controller {
             require_once("views/home_view.phtml");
         }
     }
-    
+
+    function error_search_view(){
+      $error_searchc = true;
+      require_once("views/vet_view.phtml");
+    }
+
 
 }
 

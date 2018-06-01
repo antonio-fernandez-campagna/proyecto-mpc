@@ -4,7 +4,7 @@ class login_model {
 
     private $users;
     public $db;
-    
+
     private $name;
     private $surname;
     private $dni;
@@ -84,38 +84,17 @@ class login_model {
         $this->nCollege = $nCollege;
     }
 
-    // Función que inserta un usuario en la bd y comprueba que no haya un usuario con ese mismo nombre de usuario
-    public function insert_user() {
-
-        $cripted = crypt($this->password, '$4$rounds=5000$contraseña$');
-
-        //comprobar que no haya ningún usuario con ese nombre de usuario antes de insertar.
-        $sql = "SELECT USERNAME FROM `user` WHERE USERNAME = '{$this->username}'";
-
-        $consulta = $this->db->query($sql);
-        $repeatedUsername = $consulta->fetch_assoc();
-
-        if ($repeatedUsername['USERNAME'] == null) {
-            $sql2 = "INSERT INTO USER (USERNAME, PASSWORD, NAME,EMAIL,ADDRESS,POSTALCODE) VALUES ('{$this->username}','{$cripted}','{$this->name}','{$this->email}','{$this->address}','{$this->postalCode}');";
-
-            $consulta = $this->db->query($sql2);
-            if ($this->db->error)
-                return "$consulta<br>{$this->db->error}";
-            else {
-                return false;
-            }
-        } elseif ($repeatedUsername['USERNAME'] != null) {
-            return false;
-        }
-    }
 
     // Función para logear (comprueba que el usuario existe en la BD)
 
 
     public function verifyUser() {
 
-        $query = "SELECT u.*, t.tipo as tipo_usuario FROM usuarios u, tipo_usuario t WHERE u.usuario ='{$this->username}' AND u.contrasenya = '{$this->password}' AND u.tipo = t.id;";
-        
+        $crypt = md5($this->password);
+        //die($crypt);
+
+        $query = "SELECT u.*, t.tipo as tipo_usuario FROM usuarios u, tipo_usuario t WHERE u.usuario ='{$this->username}' AND u.contrasenya = '{$crypt}' AND u.tipo = t.id;";
+
         $consulta = $this->db->query($query);
         while ($filas = $consulta->fetch_assoc()) {
             $this->users = $filas;

@@ -58,24 +58,6 @@
     <?php } ?>
     </thead>
     <tbody>
-      <?php if (!empty($data['pets']['medicamento'])){ ?>
-        <?php foreach ($data['pets'] as $pet){ ?>
-      <tr>
-        <td><?php echo $pet['nombre'] ?></td>
-        <td><?php echo $pet['especie'] ?></td>
-        <td><?php echo $pet['age'] ?></td>
-        <td><?php echo $pet['peso'] ?></td>
-        <td><?php echo $pet['sexo'] ?></td>
-        <td><?php echo $pet['nombre_medicamento'] ?></td>
-        <td><?php echo $pet['observacion'] ?></td>
-        <td><?php echo $pet['chip'] ?></td>
-        <td><?php echo $pet['dni_propietario'] ?></td>
-        <td><a href="index.php?action=edit&pet=<?php echo $pet['id']?>">Editar</a></td>
-        <td>Recetar</td>
-
-      </tr>
-      <?php } ?>
-    <?php } else { ?>
       <?php foreach ($data['pets'] as $pet){ ?>
       <tr>
         <td><?php echo $pet['nombre'] ?></td>
@@ -85,12 +67,9 @@
         <td><?php echo $pet['sexo'] ?></td>
         <td><?php echo $pet['chip'] ?></td>
         <td><?php echo $pet['dni_propietario'] ?></td>
-        <td><a href="index.php?action=edit&pet=<?php echo $pet['id']?>">Editar</a></td>
-        <td>Recetar</td>
-        <td>Eliminar</td>
+        <td><a href="index.php?action=edit&pet=<?php echo $pet['chip']?>">Editar</a></td>
+        <td><a href="index.php?action=prescribeView&pet=<?php echo $pet['chip']?>">Ver</a></td>
       </tr>
-
-      <?php } ?>
     <?php } ?>
 
     </tbody>

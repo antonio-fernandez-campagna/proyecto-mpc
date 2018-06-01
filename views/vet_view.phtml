@@ -12,6 +12,9 @@
                 <a class="nav-link"  href="?action=petAddView">Añadir mascotas</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link"  href="?action=petModify">Editar mascotas</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="index.php?action=logout">logout</a>
             </li>
         </ul>
@@ -27,13 +30,22 @@
 </nav>
 
 
-
 <div class="mt-4 container-meds mr-0 ml-2 row">
 
 
 
     <div class=" col-3">
         <div class="main">
+          <?php if (!empty($errorSearch) && $errorSearch == true){ ?>
+            <div class="alert alert-danger text-center" role="alert">
+              <strong>¡Error!</strong> DNI o CHIP no existe
+            </div>
+          <?php } ?>
+          <?php if (!empty($showDeletePet) && $showDeletePet == true){ ?>
+              <div class="alert alert-success text-center" role="alert">
+               Mascota eliminada correctamente
+             </div>
+          <?php } ?>
 
           <form class="mb-4" action="?action=generarRecetas" method="post">
             <button type="submit" name="button">Generar recetas aleatorias</button>
@@ -60,7 +72,7 @@
                         <!-- Search form -->
                         <div class="input-group mb-3" >
                           <form class="form-inline w-100" action="index.php?action=searchPet" method="post">
-                            <input type="text" class="form-control" placeholder="Buscar por CHIP" aria-label="Search term" aria-describedby="basic-addon" name="chip">
+                            <input type="number" class="form-control" placeholder="Buscar por CHIP" aria-label="Search term" aria-describedby="basic-addon" name="chip">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-success" type="submit">Buscar</button>
                             </div>
