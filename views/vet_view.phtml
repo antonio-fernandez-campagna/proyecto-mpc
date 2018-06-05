@@ -189,7 +189,7 @@
 
                         <div class="form-group">
                             <label for="usr">Número de chip:</label>
-                            <input type="text" class="form-control" name="chip">
+                            <input type="text" class="form-control" name="chip" <?php if($chip) { ?> value="<?php echo $chip ?>" <?php } ?> >
                         </div>
                         <button name="id" type="submit" class="btn btn-outline-danger float-right btn-sm" data-toggle="collapse" data-target="#collapseExample">Confirmar receta</button>
 

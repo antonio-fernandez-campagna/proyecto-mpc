@@ -46,7 +46,6 @@ class prescriptions_controller {
         $id_prescription = !empty($_GET['prescription']) ? $_GET['prescription'] : "";
         $chip =  !empty($_GET['chip']) ? $_GET['chip'] : "";
 
-        
         if ($id_prescription) {
             $prescription_model->set_collected($id_prescription);
            

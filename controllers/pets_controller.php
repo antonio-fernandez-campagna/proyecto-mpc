@@ -129,29 +129,6 @@ class pets_controller {
         $this->pet_view(); // todo: añadir para despues de eliminar perro/receta
     }
 
-    function pet_modify() {
-
-        die;
-
-        $pets_model = new pets_model();
-
-        $chip = $_GET['pet'];
-
-        if (!empty($_POST['dni'])) {
-            $dni = $_POST['dni'];
-            $data['pets'] = $pets_model->get_pet_dni($dni);
-        } elseif (!empty($_POST['chip'])) {
-            $chip = $_POST['chip'];
-            $data['pets'] = $pets_model->get_pet_chip($chip);
-        } elseif (empty($_POST['chip']) && empty($_POST['dni']) && $chip != "") {
-            $data['pets'] = $pets_model->get_info_pet_chip($id_pet);
-        }
-
-        $pet_view = "yes";
-
-        include 'views/petVet_view.phtml';
-    }
-
     function prescribe_view() {
         $pets_model = new pets_model();
         $chip = $_GET['pet'];
@@ -200,7 +177,6 @@ class pets_controller {
 
         if (!empty($dni)) {
             $data['pets'] = $pets_model->get_info_pet_dni($dni);
-//            echo "<pre>" . print_r($data['pets'], 1) . "</pre>";
             if (empty($data['pets'])) {
                 return true;
             }
@@ -215,10 +191,9 @@ class pets_controller {
         $pets_model = new pets_model();
 
         if (empty($chip)) {
-            die("x");
-            $chip = !empty($_GET['pet']) ? $_GET['pet'] : "";
+            $chip = !empty($_REQUEST['pet']) ? $_REQUEST['pet'] : "";
         }
-                
+ 
         if (!empty($chip)) {
             $data['pets'] = $pets_model->get_more_info($chip);
             if (empty($data['pets'])) {
@@ -226,7 +201,6 @@ class pets_controller {
             }
             include 'views/farm_more_info_pet.phtml';
         } else {
-            die("maal");
             return true;
         }
     }

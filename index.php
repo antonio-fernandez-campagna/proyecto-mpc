@@ -66,14 +66,10 @@ if (isset($_GET['action'])) {
         $prescriptions_controller->collected();
     }
 
-
-
-
-
-
-    // if ($_GET['action'] == "edit_pet") {
-    //     $pets_controller->pet_modify();
-    // }
+    if ($_GET['action'] == "toPrescribe") {
+        $chip = $_GET['chip'];
+        $homeController->view("", "", "", "", "", $chip);
+    }
 
     if ($_GET['action'] == "addPresciption") {
         $prescriptions_controller->add_prescription();
