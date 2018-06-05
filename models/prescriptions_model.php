@@ -116,7 +116,6 @@ class prescriptions_model {
             $date = date('Y-m-d',strtotime($date . "+1 days"));
         }
 
-        die("no entra");
         
         if ($this->db->error)
             return "true";

@@ -19,9 +19,9 @@ class home_controller {
             $cat = new categories_controller();
 
             if (empty($medName)) {
-                $data['medicines'] = $med->all_medicines();
+                $data['medicines'] = $med->get_medicine();
             } else {
-                $data['medicines'] = $med->name_medicine($medName);
+                $data['medicines'] = $med->get_medicine($medName);
             }
 
             $data['categories'] = $cat->all_categories();
@@ -30,15 +30,14 @@ class home_controller {
             $data['administration'] = $med->all_way_administration();
 
 
-            
-            
+
             if (!empty($_SESSION['user']) && $_SESSION['userType'] == "veterinario") {
 
                 require_once("views/vet_view.phtml");
             }
 
             if (!empty($_SESSION['user']) && $_SESSION['userType'] == "proveedor") {
-                require_once("views/lab_view.phtml");
+                $med->medicine_graph();
 
             }
 

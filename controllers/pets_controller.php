@@ -5,13 +5,13 @@ require_once 'models/pets_model.php';
 class pets_controller {
 
     // Función que muestra la página principal
-    function add_view($errorAdd = "") {
+    function add_view($errorAdd = "", $errorDate = "") {
 
         if (!empty($_SESSION['user'])) {
-
+            
             $pets_model = new pets_model();
             $data = $pets_model->get_species();
-
+            
             require_once("views/vet_add_pet_view.phtml");
         } else {
             require_once("views/home_view.phtml");
@@ -24,14 +24,31 @@ class pets_controller {
         $conexion = $pets_model->db;
 
         // comprobaciíon de mysql injection
-        $name = mysqli_real_escape_string($conexion, $_POST['petName']);
-        $specie = mysqli_real_escape_string($conexion, $_POST['specie']);
-        $dniProp = mysqli_real_escape_string($conexion, $_POST['dni']);
-        $chip = mysqli_real_escape_string($conexion, $_POST['chip']);
-        $birthDate = mysqli_real_escape_string($conexion, $_POST['birth']);
-        $sex = mysqli_real_escape_string($conexion, $_POST['sex']);
-        $weight = mysqli_real_escape_string($conexion, $_POST['weight']);
+        
+        $name = !empty($_POST['petName']) ? $_POST['petName'] : "";
+        $specie = !empty($_POST['specie']) ? $_POST['specie'] : "";
+        $dniProp = !empty($_POST['dni']) ? $_POST['dni'] : "";
+        $chip = !empty($_POST['chip']) ? $_POST['chip'] : "";
+        $birthDate = !empty($_POST['birth']) ? $_POST['birth'] : "";
+        $sex = !empty($_POST['sex']) ? $_POST['sex'] : "";
+        $weight = !empty($_POST['weight']) ? $_POST['weight'] : "";
+        
+        $name = mysqli_real_escape_string($conexion, $name);
+        $specie = mysqli_real_escape_string($conexion, $specie );
+        $dniProp = mysqli_real_escape_string($conexion, $dniProp);
+        $chip = mysqli_real_escape_string($conexion, $chip);
+        $birthDate = mysqli_real_escape_string($conexion, $birthDate);
+        $sex = mysqli_real_escape_string($conexion, $sex);
+        $weight = mysqli_real_escape_string($conexion, $weight);
 
+        $today = date("Y-m-d");
+        
+        
+        if($birthDate > $today){
+            return false;
+        }
+        
+        
         $pets_model->setName($name);
         $pets_model->setSpecie($specie);
         $pets_model->setDniProp($dniProp);
@@ -92,7 +109,7 @@ class pets_controller {
     function edit_pet() {
         $pets_model = new pets_model();
         $conexion = $pets_model->db;
-        $id_chip = $_GET['pet'];
+        $id_chip = $_GET['pet_chip'];
 
         $name = mysqli_real_escape_string($conexion, $_POST['name']);
         $dniProp = mysqli_real_escape_string($conexion, $_POST['dni']);
@@ -102,7 +119,7 @@ class pets_controller {
         $pets_model->setDniProp($dniProp);
         $pets_model->setWeight($weight);
 
-        $pets_model->set_pet($id_pet);
+        $pets_model->set_pet($id_chip);
 
         if(empty($dniProp)){
           $this->show_view_after_delete();

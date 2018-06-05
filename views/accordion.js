@@ -1,5 +1,7 @@
 jQuery(document).ready(function () {
 
+        $(".highchart").css("display", "none");
+
         $(".filterProduct").change(function () {
       // si la clase filterProduct tiene la clase "activated" se la quita, sino, se la pone
         if ($(this).hasClass("activated")) {

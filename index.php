@@ -38,13 +38,16 @@ if (isset($_GET['action'])) {
     }
 
     if ($_GET['action'] == "addPet") {
-        $pets_controller->add_pet();
+        $result = $pets_controller->add_pet();
+        if ($result == false) {
+            $pets_controller->add_view("", $errorDate = true);
+        }
     }
 
     if ($_GET['action'] == "searchPet") {
         $result = $pets_controller->pet_view();
-        if ($result == true){
-          $homeController->view("","","","",true);
+        if ($result == true) {
+            $homeController->view("", "", "", "", true);
         }
     }
 
@@ -55,7 +58,6 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == "addPresciption") {
         $prescriptions_controller->add_prescription();
     }
-
 
     if ($_GET['action'] == "edit") {
         $pets_controller->edit_pet_view();
@@ -85,7 +87,6 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == "generarRecetas") {
         $prescriptions_controller->generar_recetas();
     }
-    
 } else {
     $homeController = new home_controller();
     $homeController->view();

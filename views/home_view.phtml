@@ -1,51 +1,33 @@
-<!DOCTYPE html>
-<html>
+<?php include 'views/templates/header_template.phtml'; ?>
 
-<head>
-      <meta charset="utf-8">
-      <title>MY PET CARD</title>
-      <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script type="text/javascript" src="views/accordion.js"></script>
-      <link rel="stylesheet" href="views/css.css">
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
-      <link rel="stylesheet"   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<script type="text/javascript">
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
 
-    <!--  <script src='https://www.google.com/recaptcha/api.js?hl=es'></script> -->
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+      // Store hash
+      var hash = this.hash;
 
-  <!--<link rel="stylesheet" href="css.css"> -->
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
 
-  <script type="text/javascript">
-  $(document).ready(function(){
-    // Add smooth scrolling to all links
-    $("a").on('click', function(event) {
-
-      // Make sure this.hash has a value before overriding default behavior
-      if (this.hash !== "") {
-        // Prevent default anchor click behavior
-        event.preventDefault();
-
-        // Store hash
-        var hash = this.hash;
-
-        // Using jQuery's animate() method to add smooth page scroll
-        // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-        $('html, body').animate({
-          scrollTop: $(hash).offset().top
-        }, 800, function(){
-
-          // Add hash (#) to URL when done scrolling (default click behavior)
-          window.location.hash = hash;
-        });
-      } // End if
-    });
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
   });
-  </script>
-
-</head>
+});
+</script>
 
 <body>
 
@@ -54,10 +36,10 @@
     <!-- navbar -->
     <nav class="navbar mainpage">
       <ul>
-        <li><a href="#client">MyPetCard para clientes</a></li>
-        <li><a href="#vet">Veterinarios</a></li>
-        <li><a href="#farm">Farmacias</a></li>
-        <li><a href="#lab">laboratorios</a></li>
+        <li><a href="#client" style="font-size: 16px">MyPetCard para clientes</a></li>
+        <li><a href="#vet" style="font-size: 16px">Veterinarios</a></li>
+        <li><a href="#farm" style="font-size: 16px">Farmacias</a></li>
+        <li><a href="#lab" style="font-size: 16px">laboratorios</a></li>
       </ul>
     </nav>
     <!-- navbar -->
@@ -66,14 +48,16 @@
 
       <h2 class="login-header">Log in</h2>
 
-      <form class="login-container" action="index.php?action=login" method="post">
-        <p><input type="text" name="username" placeholder="username" autocomplete="off"></p>
-        <p><input type="password" name="password" placeholder="Password" autocomplete="off"></p>
+      <form class="login-container" autocomplete="new-password" action="index.php?action=login" method="post">
+        <p><input type="text" name="username" placeholder="username" autocomplete="new-password"></p>
+        <p><input type="password" name="password" placeholder="Password" ></p>
       <!--<div class="g-recaptcha" data-sitekey="6LfoTFwUAAAAAHLU-wIipNaqppNqHQ0MquEuxF5a"></div> -->
+      <div class="g-recaptcha ml-5" data-sitekey="6LfoTFwUAAAAAHLU-wIipNaqppNqHQ0MquEuxF5a"></div>
+
       <?php if (!empty($errorLogin) && $errorLogin == "yes") { ?>
-        <div class="container">
+        <div class="container mt-3">
           <div class="alert alert-danger">
-          Usuario o contrasña incorrectos
+          Usuario o contraseña incorrectos
           </div>
         </div>
       <?php } ?>
@@ -84,16 +68,17 @@
   </div>
 
   <div class="petCardUser text-center" id="client">
-    <h2>¿Qué es My Pet Card?</h2>
 
     <div class="container">
+      <h1>¿Qué es My Pet Card?</h1>
 
       <div class="row">
 
-        <div class="col-6">
+        <div class="col-6 petCardUserCols" >
+          <img src="imgs/petcard.png" class="mr-5" style="margin-top: 80px;width:80%">
         </div>
 
-        <div class="petCardExplain text-justify col-6">
+        <div class="petCardExplain text-justify col-6 petCardUserCols" style="font-size: 18px;">
           <p>My Pet Card es un sistema en el que todos los datos de su mascota se podrán visualizar vía web. El veterinario añadirá los medicamentos que necesite y usted y la farmacia los podrá ver para no necesitar llevar consigo el papel de la receta.
             Así mismo podrá comprar medicamentos online que necesiten receta ya que se podrá comprobar si han sido recetados.
           </p>
@@ -118,7 +103,7 @@
     <div class="container text-justify">
 
       <div class="row">
-        <div class="col-6">
+        <div class="col-6" style="font-size: 18px;">
 
           <h2 >My Pet Card para Veterinarios</h2>
 
@@ -148,7 +133,7 @@
 
         </div>
 
-        <div class="col-6">
+        <div class="col-6" style="font-size: 18px;">
 
           <h2>My pet Card para Farmacias</h2>
 
@@ -165,7 +150,7 @@
 
       <div class="row">
 
-        <div class="col-6">
+        <div class="col-6" style="font-size: 18px;">
           <h2>My pet Card para Laboratorios</h2>
 
           <p>Lance al mercado nuevos medicamentos fácilmente, cualquier veterinario podrá consultar su medicamento. Haga consultas para estudios de mercado y comprueba qué medicamento se vende más.</p>
@@ -182,5 +167,43 @@
 
 
 </body>
+
+<footer class="footer-distributed m-0">
+
+  <div class="footer-left">
+
+    <h2>MyPetCard</h2>
+
+    <p class="footer-links">
+      <a href="#client">Clientes</a>·
+      <a href="#vet">Veterinarios</a>·
+      <a href="#farm">Farmacias</a>·
+      <a href="#lab">laboratorios</a>
+    </p>
+
+    <p class="footer-company-name">MyPetCard &copy; 2018</p>
+  </div>
+
+  <div class="footer-center">
+
+    <div  style="margin-top: 47px;">
+      <i class="fa fa-envelope"></i>
+      <p><a href="mailto:support@company.com">toninocampagna13@gmail.com</a></p>
+    </div>
+
+  </div>
+
+  <div class="footer-right">
+
+    <p class="footer-company-about">
+      <span>Sobre My Pet Card </span>
+      My pet card está disponible para quien lo desee, enviar email para más información.
+    </p>
+
+
+  </div>
+
+</footer>
+
 
 </html>

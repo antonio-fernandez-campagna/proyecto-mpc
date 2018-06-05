@@ -1,114 +1,50 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <title>MY PET CARD</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <link rel="stylesheet" href="views/css.css">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-
-  <script src="views/jquery.min.js" type="text/javascript"></script>
-  <script src="views/highcharts.js" type="text/javascript"></script>
-  <script src="views/jquery.highchartTable.js" type="text/javascript"></script>
-  <script>
-      $(document).ready(function () {
-          $('table.highchart').highchartTable();
-      });
-  </script>
-
-</head>
+<?php include 'views/templates/header_template.phtml'; ?>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark  user-navbar">
-  <a class="navbar-brand" href="index.php">MY PET CARD</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<script>
+    $(document).ready(function () {
+        $('table.highchart').highchartTable();
+    });
+</script>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="?action=petAddView">Añadir mascotas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="index.php?action=logout">logout</a>
-      </li>
-    </ul>
+<body>
+  
+<div class="container mt-4">
+           <div class="row">
+             <?php foreach ($data['categories'] as $category) { ?>
 
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Buscar acciones med." aria-label="Search" id="efectSearch">
-    </form>
+                   <div class="col-3">
+                       <div class="dropdown">
+                         <form action="?action=graph&catMedicine=<?php echo $category['id'] ?>" method="post">
+                            <button type="submit" class="btn btn-block btn-primary "  aria-expanded="false">
+                                <span><?php echo $category['nombre'] ?></span>
+                             </button>
+                          </form>
+                        </div>
+                   </div>
 
-    <form class="form-inline my-2 my-lg-0" action="index.php?action=searchMedicine" method="post">
-      <input class="form-control mr-sm-2" type="search" placeholder="Buscar medicamento" aria-label="Search" id="autocomplete" name="medicineName">
-    </form>
-  </div>
-</nav>
+            <?php } ?>
+           </div>
+       </div>
 
-<div class="">
-  <form class="" action="?action=graph&catMedicine=1" method="post">
-  <button type="submit" class="drawGraph" name="button">Antiinflamatorio</button>
-</form>
+<div class="container" >
+
+<div class="highchart-container mt-4" ></div>
+
+  <?php if (!empty($html)) {
+    echo $html;
+  } ?>
+
+
 </div>
 
-<div class="">
-  <button type="button" class="drawGraph" name="button" graph="2" _onclick="graphic(2)">Antiparasitario interno</button>
-</div>
+<script>
+jQuery(document).ready(function () {
 
-<div class="" onclick="graphic(3)">
-  Antifúngicos
-</div>
+  $(".highchart").css("display", "none");
 
-<div class="" onclick="graphic(4)">
-  Antiparasitario
-</div>
-
-<div class="highchart-container"></div>
-
-<table class="highchart" data-graph-container=".. .. .highchart-container" data-graph-type="line">
-    <caption>Column example</caption>
-    <thead>
-        <tr>
-            <th>Month</th>
-            <th>MEDICINA 1</th>
-            <th>MEDICINA 2</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>January</td>
-            <td>8000</td>
-            <td>2000</td>
-        </tr>
-        <tr>
-            <td>February</td>
-            <td>12000</td>
-            <td>3000</td>
-        </tr>
-        <tr>
-            <td>March</td>
-            <td>18000</td>
-            <td>4000</td>
-        </tr>
-        <tr>
-            <td>April</td>
-            <td>2000</td>
-            <td>-1000</td>
-        </tr>
-        <tr>
-            <td>May</td>
-            <td>500</td>
-            <td>-2500</td>
-        </tr>
-    </tbody>
-</table>
-
+});
+</script>
 
 </body>
 

@@ -9,6 +9,7 @@ class medicines_model {
     private $administration;
     private $id;
     private $name;
+    private $category;
 
     public function __construct() {
         $this->db = Conectar::conexion();
@@ -16,6 +17,7 @@ class medicines_model {
         $this->med_spe = array();
         $this->species = array();
         $this->administration = array();
+        $this->category = array();
     }
 
     // Función que devuelve todos los productos
@@ -82,12 +84,13 @@ class medicines_model {
     }
 
     public function get_name_medicine($medicine) {
-        $query = "SELECT med.id, medN.nombre, cat.nombre as categoria, efe.efecto, efeSec.efecto_secundario, adm.administramiento, 
-            img.url, lab.marca FROM medicamento med, medicamento_nombre medN, categoria_medicamento cat, efecto_medicamento efe, 
-            efectos_secundarios efeSec, administramiento_medicamento adm, imagenes img, laboratorio lab
-            where med.nombre = medN.id AND med.categoria = cat.id AND med.efecto = efe.id AND
-            med.efecto_secundario = efeSec.id AND med.administramiento = adm.id AND
-            med.imagen = img.id AND med.marca = lab.id and medN.nombre like '%$medicine%'";
+        $query = "SELECT med.id, medN.nombre, cat.nombre as categoria, efe.efecto, adm.id as id_adm,
+            cat.id as id_cat, efeSec.efecto_secundario, adm.administramiento, img.url, lab.marca FROM medicamento med, 
+            medicamento_nombre medN, categoria_medicamento cat, efecto_medicamento efe, efectos_secundarios efeSec,
+            administramiento_medicamento adm, imagenes img, laboratorio lab where med.nombre = medN.id
+            AND med.categoria = cat.id AND med.efecto = efe.id AND med.efecto_secundario = efeSec.id 
+            AND med.administramiento = adm.id AND med.imagen = img.id AND med.marca = lab.id and medN.nombre like '%{$medicine}%'";
+
         $consulta = $this->db->query($query);
         while ($filas = $consulta->fetch_assoc()) {
             $this->medicines[] = $filas;
@@ -103,7 +106,7 @@ class medicines_model {
         while ($fila = $consulta->fetch_assoc()) {
             $this->medicines[$fila['id_medicamento']] = $fila;
         }
-        
+
         return $this->medicines;
     }
 
@@ -111,30 +114,39 @@ class medicines_model {
         $query = "select count(*) as cnt, CONCAT(YEAR(fechaReceta),'-',MONTH(fechaReceta)) as MonthYear, medicamento as id_medicamento from recetas WHERE medicamento = {$idMed} group by MonthYear order by fechaReceta ASC";
 
         die($query);
-        
+
         $consulta = $this->db->query($query);
         while ($filas = $consulta->fetch_assoc()) {
             $this->medicines[] = $filas;
         }
         return $this->medicines;
     }
-    
+
+    public function get_current_category($idCat) {
+        $query = "select nombre from categoria_medicamento where id = {$idCat}";
+        
+        $consulta = $this->db->query($query);
+        while ($filas = $consulta->fetch_assoc()) {
+            $this->category[] = $filas;
+        }
+        return $this->category;
+    }
+
     public function test_func($catMedicinas) {
         $meds = $this->get_medicine_graphics($catMedicinas);
         $idsMedicinas = [];
-        foreach($meds as $m){
+        foreach ($meds as $m) {
             $idsMedicinas[] = $m['id_medicamento'];
         }
-        $idsMedicinas = implode(',',$idsMedicinas);
-        
+        $idsMedicinas = implode(',', $idsMedicinas);
+
         $query = "select medicamento as id_medicamento, SUM(cantidad) as suma, CONCAT(YEAR(fechaReceta),'-',MONTH(fechaReceta)) as MonthYear "
                 . " from recetas WHERE medicamento IN ({$idsMedicinas}) group by MonthYear, id_medicamento order by fechaReceta ASC";
 
         $consulta = $this->db->query($query);
         $this->medicines = []; //todo change var name to be used as output storage
         while ($fila = $consulta->fetch_assoc()) {
-            $this->medicines[$fila['MonthYear']][$fila['id_medicamento']] = ['nombre'=> $meds[$fila['id_medicamento']]['nombre_medicamento'],'suma'=> $fila['suma']];        
-            
+            $this->medicines[$fila['MonthYear']][$fila['id_medicamento']] = ['nombre' => $meds[$fila['id_medicamento']]['nombre_medicamento'], 'suma' => $fila['suma']];
         }
         return $this->medicines;
     }

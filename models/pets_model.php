@@ -115,7 +115,6 @@ class pets_model {
       }
 
 
-
         $result = $this->db->query($query);
         if ($this->db->error)
             return "true";

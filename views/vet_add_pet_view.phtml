@@ -3,96 +3,101 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark  user-navbar">
-    <a class="navbar-brand" href="index.php">MY PET CARD</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-lg navbar-dark  user-navbar">
+        <a class="navbar-brand" href="index.php">MY PET CARD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="views/vet_add_pet_view.html">Añadir mascotas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="views/vet_add_med_view.html">Añadir medicametos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="aaaaa">logout</a>
-        </li>
-      </ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="views/vet_add_pet_view.html">Añadir mascotas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="views/vet_add_med_view.html">Añadir medicametos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="aaaaa">logout</a>
+                </li>
+            </ul>
 
+        </div>
+    </nav>
+
+
+
+    <div class="container br-light  mt-4 minHeight">
+
+        <?php if ($errorAdd == "true") { ?>
+            <div class="alert alert-danger" role="alert">
+                Error al insertar la mascota
+            </div>
+        <?php } elseif ($errorAdd == "false") { ?>
+            <div class="alert alert-success" role="alert">
+                Se ha insertado correctamente
+            </div>
+        <?php } ?>
+
+        <?php  if (!empty($errorDate) && $errorDate == "true") { ?>
+            <div class="alert alert-danger" role="alert">
+                No se puede insertar una fecha mayor a la de hoy
+            </div>
+        <?php } ?>
+
+        <form name="addPet" action="?action=addPet" method="post">
+
+            <div class="mb-4">
+
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control mb-3" name="petName" placeholder="Nombre mascota">
+                    </div>
+                    <div class="col">
+                        <select class="custom-select"name="specie">
+                            <option value="NULL" selected>Elige...</option>
+                            <?php foreach ($data as $dato) { ?>
+                                <option value="<?php echo $dato['id'] ?>"><?php echo $dato['especie'] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <input type="text" class="form-control mb-3" name="dni" placeholder="DNI propietario">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="chip" placeholder="CHIP mascota">
+                    </div>
+                </div>
+
+                <div class="form-row mb-4">
+                    <div class="col">
+                        <input type="date" class="form-control" name="birth" placeholder="Fecha nacimiento">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" name="weight" placeholder="Peso (kg)">
+                    </div>
+                </div>
+
+                <div class="custom-control custom-radio custom-control-inline ml">
+                    <input type="radio" id="customRadioInline1" name="sex" value="m" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline1">Macho</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="sex" value="f" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">Hembra</label>
+                </div>
+
+            </div>
+
+            <a href="?index.php" class="btn btn-lg btn-light text-white float-right bg-danger">Salir</a>
+            <button class="btn btn-lg btn-light bg-success text-white float-right" type="submit">Añadir</button>
+
+        </form>
     </div>
-  </nav>
-
-
-
-  <div class="container br-light  mt-4 minHeight">
-
-    <?php if ($errorAdd == "true") { ?>
-        <div class="alert alert-danger" role="alert">
-            Error al insertar la mascota
-        </div>
-    <?php } elseif ($errorAdd == "false") { ?>
-      <div class="alert alert-success" role="alert">
-          Se ha insertado correctamente
-      </div>
-    <?php } ?>
-
-
-    <form name="addPet" action="?action=addPet" method="post">
-
-      <div class="mb-3">
-
-        <div class="form-row">
-          <div class="col">
-            <input type="text" class="form-control mb-3" name="petName" placeholder="Nombre mascota">
-          </div>
-          <div class="col">
-            <select class="custom-select"name="specie">
-              <option value="NULL" selected>Elige...</option>
-              <?php foreach ($data as $dato) { ?>
-              <option value="<?php echo $dato['id'] ?>"><?php echo $dato['especie'] ?></option>
-              <?php } ?>
-            </select>
-          </div>
-
-        </div>
-
-        <div class="form-row">
-          <div class="col">
-            <input type="text" class="form-control mb-3" name="dni" placeholder="DNI propietario">
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" name="chip" placeholder="CHIP mascota">
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="col">
-            <input type="date" class="form-control" name="birth" placeholder="Fecha nacimiento">
-          </div>
-          <div class="col">
-            <input type="number" class="form-control" name="weight" placeholder="Peso (kg)">
-          </div>
-        </div>
-
-        <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline1" name="sex" value="m" class="custom-control-input">
-          <label class="custom-control-label" for="customRadioInline1">Macho</label>
-        </div>
-        <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="customRadioInline2" name="sex" value="f" class="custom-control-input">
-          <label class="custom-control-label" for="customRadioInline2">Hembra</label>
-        </div>
-
-      </div>
-
-      <button class="btn btn-lg btn-light bg-primary text-white float-left" type="submit">Añadir</button>
-      <a href="?index.php" class="btn btn-lg btn-light text-white float-right bg-danger">Salir</a>
-
-    </form>
-  </div>
 
 
 </body>

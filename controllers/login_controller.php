@@ -2,8 +2,8 @@
 
 require_once("models/login_model.php");
 require_once("controllers/home_controller.php");
-//require_once "recaptchal/ib.php";
 
+//require_once "recaptchal/ib.php";
 // clase que controla el Login, registro y comprueba el estado del cart
 class login_controller {
 
@@ -38,37 +38,57 @@ class login_controller {
         //         $_POST["g-recaptcha-response"]
         //     );
         // }
-         // si se ha logeado correctamente muestra la página principal y devuelve true, sino false y mostrará un intento
+        // si se ha logeado correctamente muestra la página principal y devuelve true, sino false y mostrará un intento
         // de inicio de sesión fallido
-
         // if (!empty($userType) && $response != null && $response->success) {
 
-        if (!empty($userType)){
-            $_SESSION['user'] = $user;
+        $stream_opts = [
+            "ssl" => [
+                "verify_peer" => false,
+                "verify_peer_name" => false,
+            ]
+        ];
 
-            $_SESSION['userType'] = $userType["tipo_usuario"];
+        $secretKey = "6LfoTFwUAAAAAJZ-ygQqu9d9FnfcVAJZz3lfTErU";
+        $responseKey = $_POST['g-recaptcha-response'];
+        $userIP = $_SERVER['REMOTE_ADDR'];
 
 
-            $home = new home_controller();
-            $_SESSION['userType'];
-            $home->view();
 
-            return true;
-        } else {
-            $home = new home_controller();
-            $home->view("","","",false);
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey&remoteip=$userIP";
+
+        $response = file_get_contents($url, false, stream_context_create($stream_opts));
+
+
+        //$response = file_get_contents($url);
+        $response = json_decode($response);
+        if ($response->success) {
+            if (!empty($userType)) {
+                $_SESSION['user'] = $user;
+
+                $_SESSION['userType'] = $userType["tipo_usuario"];
+
+
+                $home = new home_controller();
+                $_SESSION['userType'];
+                $home->view();
+
+                return true;
+            } else {
+                $home = new home_controller();
+                $home->view("", "", "", false);
+            }
         }
     }
 
     // Función para registrarse
     function register() {
-
-
+        
     }
 
     // Función que muestra un error
     function loginFailed() {
-
+        
     }
 
 }
