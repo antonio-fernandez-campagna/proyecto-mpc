@@ -1,6 +1,15 @@
 jQuery(document).ready(function () {
 
-        $(".highchart").css("display", "none");
+        $(".recetar").click(function(){
+          if ($(this).hasClass("activated")) {
+              $(this).removeClass("activated");
+              $(this).html("recetar");
+          } else {
+            $(this).addClass("activated");
+            $(this).html("cerrar");
+          }
+        });
+
 
         $(".filterProduct").change(function () {
       // si la clase filterProduct tiene la clase "activated" se la quita, sino, se la pone
@@ -110,7 +119,7 @@ function process_data(medicines) {
     var html = "";
 medicines.forEach(function(medicine){
         html += "<div class='card mb-5 col-3 ml-5 card-medicines'>"
-                + "<a data-toggle='modal' href='#modall' style='width: 40%'><img class='card-img-top' src='" + medicine.url + "'></a>"
+                + "<a data-toggle='modal' href='#modall' style='width:70%'><img class='card-img-top' src='" + medicine.url + "'></a>"
                 + "<div class='card-block'>"
                 + "<h4 class='card-title'>"
                 + medicine.nombre
@@ -159,7 +168,7 @@ medicines.forEach(function(medicine){
                 + "</div>"
 
                 + "</div>"
-                + "<div class='card-footer'>"
+                + "<div class='card-footer mb-2'>"
                 + "<button name='id' value='' class='btn btn-outline-success float-right btn-sm' data-toggle='collapse' data-target='#collapseExample" + medicine.id + "'>Recetar</button>"
                 + "</div>"
                 + "</div>"

@@ -6,7 +6,7 @@
   <title>MY PET CARD</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="views/accordion.js"></script>
+  <script type="text/javascript" src="views/js.js"></script>
   <link rel="stylesheet" href="views/css.css">
   <script type="text/javascript" src="views/jquery.autocomplete.min.js"></script>
 
@@ -28,13 +28,10 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav nav">
+        <ul class="navbar-nav nav mr-auto">
           <?php if($_SESSION['userType'] == "veterinario"){ ?>
             <li class="nav-item">
                 <a class="nav-link"  href="?action=petAddView">Añadir mascotas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="?action=petModify">Editar mascotas</a>
             </li>
           <?php } ?>
             <li class="nav-item ">
@@ -44,11 +41,11 @@
 
         <?php if($_SESSION['userType'] == "veterinario"){ ?>
         <div class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar acciones med." aria-label="Search" id="efectSearch">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar acciones med." aria-label="Search" id="efectSearch" <?php if(!empty($pet_view) && $pet_view == "yes"){ ?> disabled <?php } ?>>
         </div>
 
         <form class="form-inline my-2 my-lg-0" action="index.php?action=searchMedicine" method="post">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar medicamento" aria-label="Search" id="autocomplete" name="medicineName">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar medicamento" aria-label="Search" id="autocomplete" name="medicineName" <?php if(!empty($pet_view) && $pet_view == "yes"){ ?> disabled <?php } ?>>
         </form>
         <?php } ?>
     </div>

@@ -55,15 +55,34 @@
 
             <div class="accordion">
 
+              <div class="accordion-section">
+                  <a class="accordion-section-title text-left" href="#accordion-2">Categorias</a>
+                  <div id="accordion-2" class="accordion-section-content">
+                      <div class="funkyradio">
+                          <?php foreach ($data['categories'] as $category) { ?>
+
+                          <div class="funkyradio-danger">
+
+                              <input type="checkbox" class="filterProduct" name="checkbox" id="checkboxCateg<?php echo $category['id']; ?>" />
+                              <label for="checkboxCateg<?php echo $category['id']; ?>"><?php echo $category['nombre']; ?></label>
+
+                          </div>
+                          <?php } ?>
+                      </div>
+                  </div>
+                  <!--end .accordion-section-content-->
+              </div>
+              <!--end .accordion-section-->
+
                 <div class="accordion-section">
-                    <a class="accordion-section-title text-left" href="#accordion-1">Especie</a>
+                    <a class="accordion-section-title text-left" href="#accordion-1">Especie (futuro)</a>
                     <div id="accordion-1" class="accordion-section-content">
                         <div class="funkyradio">
                             <?php foreach ($data['species'] as $spec) { ?>
 
                             <div class="funkyradio-danger">
 
-                                <input type="checkbox" class="filterProduct" name="checkbox" id="checkboxPet<?php echo $spec['id']; ?>" />
+                                <input type="checkbox"/>
                                 <label for="checkboxPet<?php echo $spec['id']; ?>"><?php echo $spec['especie']; ?></label>
 
                             </div>
@@ -74,34 +93,17 @@
                 </div>
                 <!--end .accordion-section-->
 
-                <div class="accordion-section">
-                    <a class="accordion-section-title text-left" href="#accordion-2">Categorias</a>
-                    <div id="accordion-2" class="accordion-section-content">
-                        <div class="funkyradio">
-                            <?php foreach ($data['categories'] as $category) { ?>
 
-                            <div class="funkyradio-danger">
-
-                                <input type="checkbox" class="filterProduct" name="checkbox" id="checkboxCateg<?php echo $category['id']; ?>" />
-                                <label for="checkboxCateg<?php echo $category['id']; ?>"><?php echo $category['nombre']; ?></label>
-
-                            </div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <!--end .accordion-section-content-->
-                </div>
-                <!--end .accordion-section-->
 
                 <div class="accordion-section">
-                    <a class="accordion-section-title text-left" href="#accordion-3">Vía de administración</a>
+                    <a class="accordion-section-title text-left" href="#accordion-3">Vía de administración (fúturo)</a>
                     <div id="accordion-3" class="accordion-section-content">
                         <div class="funkyradio">
                             <?php foreach ($data['administration'] as $administration) { ?>
 
                             <div class="funkyradio-danger">
 
-                                <input type="checkbox" name="checkbox" id="checkboxAdm<?php echo $administration['id']; ?>" />
+                                <input type="checkbox"/>
                                 <label for="checkboxAdm<?php echo $administration['id']; ?>"><?php echo $administration['administramiento']; ?></label>
 
                             </div>
@@ -114,9 +116,9 @@
             </div>
             <!--end .accordion-->
 
-                        <form class="mb-4 mt-4" action="?action=generarRecetas" method="post">
+            <!-- <form class="mb-4 mt-4" action="?action=generarRecetas" method="post">
                 <button type="submit" name="button">Generar recetas aleatorias</button>
-            </form>
+            </form> -->
 
         </div>
 
@@ -194,10 +196,9 @@
                     </div>
                 </form>
 
-
             </div>
             <div class="card-footer">
-                <button name="id" value="" class="btn btn-outline-success float-right btn-sm" data-toggle="collapse" data-target="#collapseExample<?php echo $medicine['id'] ?>">Recetar</button>
+                <button name="id" class="btn btn-outline-success float-right btn-sm recetar" data-toggle="collapse" data-target="#collapseExample<?php echo $medicine['id'] ?>">recetar</button>
             </div>
 <?php if (!empty($medicine['especie'])) { ?>
             <div class = "meta mt-3 text-center mb-3">

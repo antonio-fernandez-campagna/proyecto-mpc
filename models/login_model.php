@@ -87,11 +87,9 @@ class login_model {
 
     // Función para logear (comprueba que el usuario existe en la BD)
 
-
     public function verifyUser() {
 
         $crypt = md5($this->password);
-        //die($crypt);
 
         $query = "SELECT u.*, t.tipo as tipo_usuario FROM usuarios u, tipo_usuario t WHERE u.usuario ='{$this->username}' AND u.contrasenya = '{$crypt}' AND u.tipo = t.id;";
 

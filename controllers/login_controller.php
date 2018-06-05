@@ -21,27 +21,6 @@ class login_controller {
 
         $userType = $user_model->verifyUser();
 
-
-        // your secret key
-        // $secret = "6LfoTFwUAAAAAHLU-wIipNaqppNqHQ0MquEuxF5a";
-        //
-        // // empty response
-        // $response = null;
-        //
-        // // check secret key
-        // $reCaptcha = new ReCaptcha($secret);
-        //
-        // // if submitted check response
-        // if ($_POST["g-recaptcha-response"]) {
-        //     $response = $reCaptcha->verifyResponse(
-        //         $_SERVER["REMOTE_ADDR"],
-        //         $_POST["g-recaptcha-response"]
-        //     );
-        // }
-        // si se ha logeado correctamente muestra la página principal y devuelve true, sino false y mostrará un intento
-        // de inicio de sesión fallido
-        // if (!empty($userType) && $response != null && $response->success) {
-
         $stream_opts = [
             "ssl" => [
                 "verify_peer" => false,
@@ -53,12 +32,9 @@ class login_controller {
         $responseKey = $_POST['g-recaptcha-response'];
         $userIP = $_SERVER['REMOTE_ADDR'];
 
-
-
         $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey&remoteip=$userIP";
 
         $response = file_get_contents($url, false, stream_context_create($stream_opts));
-
 
         //$response = file_get_contents($url);
         $response = json_decode($response);
@@ -67,7 +43,6 @@ class login_controller {
                 $_SESSION['user'] = $user;
 
                 $_SESSION['userType'] = $userType["tipo_usuario"];
-
 
                 $home = new home_controller();
                 $_SESSION['userType'];
@@ -79,16 +54,6 @@ class login_controller {
                 $home->view("", "", "", false);
             }
         }
-    }
-
-    // Función para registrarse
-    function register() {
-        
-    }
-
-    // Función que muestra un error
-    function loginFailed() {
-        
     }
 
 }

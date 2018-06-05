@@ -8,10 +8,11 @@ class pets_controller {
     function add_view($errorAdd = "", $errorDate = "") {
 
         if (!empty($_SESSION['user'])) {
-            
+
             $pets_model = new pets_model();
             $data = $pets_model->get_species();
-            
+
+            $pet_view = "yes";
             require_once("views/vet_add_pet_view.phtml");
         } else {
             require_once("views/home_view.phtml");
@@ -24,7 +25,7 @@ class pets_controller {
         $conexion = $pets_model->db;
 
         // comprobaciíon de mysql injection
-        
+
         $name = !empty($_POST['petName']) ? $_POST['petName'] : "";
         $specie = !empty($_POST['specie']) ? $_POST['specie'] : "";
         $dniProp = !empty($_POST['dni']) ? $_POST['dni'] : "";
@@ -32,7 +33,7 @@ class pets_controller {
         $birthDate = !empty($_POST['birth']) ? $_POST['birth'] : "";
         $sex = !empty($_POST['sex']) ? $_POST['sex'] : "";
         $weight = !empty($_POST['weight']) ? $_POST['weight'] : "";
-        
+
         $name = mysqli_real_escape_string($conexion, $name);
         $specie = mysqli_real_escape_string($conexion, $specie );
         $dniProp = mysqli_real_escape_string($conexion, $dniProp);
@@ -42,13 +43,13 @@ class pets_controller {
         $weight = mysqli_real_escape_string($conexion, $weight);
 
         $today = date("Y-m-d");
-        
-        
+
+
         if($birthDate > $today){
             return false;
         }
-        
-        
+
+
         $pets_model->setName($name);
         $pets_model->setSpecie($specie);
         $pets_model->setDniProp($dniProp);
@@ -131,6 +132,9 @@ class pets_controller {
 
 
     function pet_modify() {
+
+      die;
+
       $pets_model = new pets_model();
 
       $chip = $_GET['pet'];
@@ -157,12 +161,9 @@ class pets_controller {
 
       $data['pets'] = $pets_model->get_info_pet_chip($chip);
 
-    //  echo "<pre>".print_r($data['pets'], 1)."</pre>";
-
       include 'views/pet_prescribe_view.phtml';
     }
 
-// todo
     function delete_pet(){
       $pets_model = new pets_model();
       $homeController = new home_controller();
@@ -171,13 +172,10 @@ class pets_controller {
 
       $data['pets'] = $pets_model->delete_pet($idPet);
 
-    //  echo "<pre>".print_r($data['pets'], 1)."</pre>";
-      $homeController->view("","","","","",true);
+      $homeController->view("","","","",true);
 
-      //include 'views/pet_prescribe_view.phtml';
     }
 
-// todo
     function delete_prescription(){
       $pets_model = new pets_model();
 
@@ -186,8 +184,6 @@ class pets_controller {
       $pets_model->delete_prescription($idPrescription);
 
       $this->show_view_after_delete($chip);
-
-    //  include 'views/pet_prescribe_view.phtml';
     }
 
     function show_view_after_delete($chip = ""){

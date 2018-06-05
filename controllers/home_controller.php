@@ -6,7 +6,7 @@ require_once 'controllers/categories_controller.php';
 class home_controller {
 
     // Función que muestra la página principal
-    function view($userCat = "", $medName = "", $presError = "", $loginFailed = "", $errorSearch = "", $showDeletePet = "") {
+    function view($medName = "", $presError = "", $loginFailed = "", $errorSearch = "", $showDeletePet = "") {
 
         if ($loginFailed === false) {
           $errorLogin = "yes";

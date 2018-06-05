@@ -273,8 +273,9 @@ class pets_model {
 
   public function delete_all_prescriptions_from_pet($idPet) {
 
-    $sql = "DELETE from recetas where medicamento = {$idPet}";
+    $sql = "DELETE from recetas where mascota = {$idPet}";
 
+    
     $result = $this->db->query($sql);
     if ($this->db->error)
         return "$sql<br>{$this->db->error}";
@@ -289,7 +290,7 @@ class pets_model {
     $this->delete_all_prescriptions_from_pet($idPet);
 
     $sql = "DELETE from mascota where id = {$idPet}";
-
+    
     $result = $this->db->query($sql);
     if ($this->db->error)
         return "$sql<br>{$this->db->error}";

@@ -21,7 +21,6 @@ class medicines_controller {
 
         $data['species'] = $med->get_species();
 
-
         $data['medicines'] = [];
 
         if (!empty($medicines)) {

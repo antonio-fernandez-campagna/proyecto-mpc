@@ -47,7 +47,7 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == "searchPet") {
         $result = $pets_controller->pet_view();
         if ($result == true) {
-            $homeController->view("", "", "", "", true);
+            $homeController->view("", "", "", true);
         }
     }
 

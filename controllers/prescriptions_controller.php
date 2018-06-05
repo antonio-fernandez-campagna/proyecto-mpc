@@ -31,7 +31,7 @@ class prescriptions_controller {
         $prescription_model->setPet($id_pet);
 
         $presError = $prescription_model->add_prescription();
-        $home_controller->view("", "", $presError);
+        $home_controller->view("", $presError);
     }
 
     function generar_recetas() {
