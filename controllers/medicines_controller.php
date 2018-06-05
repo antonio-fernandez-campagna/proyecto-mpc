@@ -88,7 +88,7 @@ class medicines_controller {
         $catMedicine = !empty($_GET['catMedicine']) ? $_GET['catMedicine'] : 1;
 
 
-        $prescription = $med->test_func($catMedicine);
+        $prescription = $med->graphic($catMedicine);
         $out = [];
 
         $currentCategory = $med->get_current_category($catMedicine);
@@ -106,7 +106,7 @@ class medicines_controller {
         $medicinasIds = array_unique($medicinasIds);
 
         $html = '<table border=1 class="highchart" data-graph-container=".. .. .highchart-container" data-graph-type="line">';
-        $html .= '<caption>Gráficos de la categoría: ' . $currentCategory[0]['nombre'] . '</caption>';
+        $html .= '<caption>Número de medicamentos recetados por mes || Gráficos de la categoría: ' . $currentCategory[0]['nombre'] . '</caption>';
         $html .= '<thead><tr><th>Month</th>';
         foreach ($medicinasNames as $mn) {
             $html .= "<th>{$mn}</th>";

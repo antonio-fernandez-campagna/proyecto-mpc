@@ -20,6 +20,7 @@ class home_controller {
 
             if (empty($medName)) {
                 $data['medicines'] = $med->get_medicine();
+                
             } else {
                 $data['medicines'] = $med->get_medicine($medName);
             }

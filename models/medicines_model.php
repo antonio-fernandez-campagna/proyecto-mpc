@@ -132,7 +132,7 @@ class medicines_model {
         return $this->category;
     }
 
-    public function test_func($catMedicinas) {
+    public function graphic($catMedicinas) {
         $meds = $this->get_medicine_graphics($catMedicinas);
         $idsMedicinas = [];
         foreach ($meds as $m) {
@@ -143,6 +143,7 @@ class medicines_model {
         $query = "select medicamento as id_medicamento, SUM(cantidad) as suma, CONCAT(YEAR(fechaReceta),'-',MONTH(fechaReceta)) as MonthYear "
                 . " from recetas WHERE medicamento IN ({$idsMedicinas}) group by MonthYear, id_medicamento order by fechaReceta ASC";
 
+                
         $consulta = $this->db->query($query);
         $this->medicines = []; //todo change var name to be used as output storage
         while ($fila = $consulta->fetch_assoc()) {

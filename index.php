@@ -30,7 +30,7 @@ if (isset($_GET['action'])) {
     }
 
     if ($_GET['action'] == "searchMedicine") {
-        $homeController->view("", $_POST['medicineName']);
+        $homeController->view($_POST['medicineName']);
     }
 
     if ($_GET['action'] == "petAddView") {
