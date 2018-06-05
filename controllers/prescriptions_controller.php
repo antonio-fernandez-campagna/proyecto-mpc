@@ -39,4 +39,22 @@ class prescriptions_controller {
         $prescription_model->add_prescriptions_script();
     }
 
+    function collected() {
+        $prescription_model = new prescriptions_model();
+        $pet_controller = new pets_controller();
+
+        $id_prescription = !empty($_GET['prescription']) ? $_GET['prescription'] : "";
+        $chip =  !empty($_GET['chip']) ? $_GET['chip'] : "";
+
+        
+        if ($id_prescription) {
+            $prescription_model->set_collected($id_prescription);
+           
+            $pet_controller->more_info_farm_view($chip); 
+        } else {
+            $home_controller = new home_controller();
+            $home_controller->view();
+        }
+    }
+
 }

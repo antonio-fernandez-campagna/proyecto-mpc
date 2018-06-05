@@ -85,10 +85,10 @@ class medicines_model {
 
     public function get_name_medicine($medicine) {
         $query = "SELECT med.id, medN.nombre, cat.nombre as categoria, efe.efecto, adm.id as id_adm,
-            cat.id as id_cat, efeSec.efecto_secundario, adm.administramiento, img.url, lab.marca FROM medicamento med, 
+            cat.id as id_cat, efeSec.efecto_secundario, adm.administramiento, img.url, lab.marca FROM medicamento med,
             medicamento_nombre medN, categoria_medicamento cat, efecto_medicamento efe, efectos_secundarios efeSec,
             administramiento_medicamento adm, imagenes img, laboratorio lab where med.nombre = medN.id
-            AND med.categoria = cat.id AND med.efecto = efe.id AND med.efecto_secundario = efeSec.id 
+            AND med.categoria = cat.id AND med.efecto = efe.id AND med.efecto_secundario = efeSec.id
             AND med.administramiento = adm.id AND med.imagen = img.id AND med.marca = lab.id and medN.nombre like '%{$medicine}%'";
 
         $consulta = $this->db->query($query);
@@ -110,17 +110,17 @@ class medicines_model {
         return $this->medicines;
     }
 
-    public function get_graph($idMed) {
-        $query = "select count(*) as cnt, CONCAT(YEAR(fechaReceta),'-',MONTH(fechaReceta)) as MonthYear, medicamento as id_medicamento from recetas WHERE medicamento = {$idMed} group by MonthYear order by fechaReceta ASC";
-
-        die($query);
-
-        $consulta = $this->db->query($query);
-        while ($filas = $consulta->fetch_assoc()) {
-            $this->medicines[] = $filas;
-        }
-        return $this->medicines;
-    }
+//    public function get_graph($idMed) {
+//        $query = "select count(*) as cnt, CONCAT(YEAR(fechaReceta),'-',MONTH(fechaReceta)) as MonthYear, medicamento as id_medicamento from recetas WHERE medicamento = {$idMed} group by MonthYear order by fechaReceta ASC";
+//
+//        die($query);
+//
+//        $consulta = $this->db->query($query);
+//        while ($filas = $consulta->fetch_assoc()) {
+//            $this->medicines[] = $filas;
+//        }
+//        return $this->medicines;
+//    }
 
     public function get_current_category($idCat) {
         $query = "select nombre from categoria_medicamento where id = {$idCat}";
@@ -150,5 +150,6 @@ class medicines_model {
         }
         return $this->medicines;
     }
+
 
 }

@@ -9,7 +9,7 @@ body {
 .primary-bg {
   position: relative;
   /* The image used */
-  background-image: url("wallpaper.jpg");
+  background-image: url("../../imgs/wallpaper.jpg");
   /* Full height */
   height: 950px;
   width: 100%;
@@ -25,7 +25,6 @@ body {
   font-size: 16px;
   margin-top: 370px;
   margin-left: 60px;
-  z-index: 10000;
 }
 
 /* Reset top and bottom margins from certain elements */
@@ -228,7 +227,7 @@ body {
   background: -webkit-linear-gradient(to right, #96c93d, #00b09b);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #96c93d, #00b09b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   height: auto;
-  min-height: 700px;
+  min-height: 800px;
   position: relative;
 }
 

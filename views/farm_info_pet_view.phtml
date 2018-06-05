@@ -1,0 +1,36 @@
+<?php include 'views/templates/header_template.phtml'; ?>
+
+<body>
+
+  <table class="table table-striped table-light mt-2 ml-2 ">
+    <thead class="mb-4">
+
+      <th scope="col">Nombre</th>
+      <th scope="col">Especie</th>
+      <th scope="col">Edad</th>
+      <th scope="col">Peso</th>
+      <th scope="col">sexo</th>
+      <th scope="col">chip</th>
+      <th scope="col">Dni propietario</th>
+      <th scope="col"></th>
+    </thead>
+    <tbody>
+      <?php foreach ($data['pets'] as $pet){ ?>
+      <tr>
+        <td><?php echo $pet['nombre'] ?></td>
+        <td><?php echo $pet['especie'] ?></td>
+        <td><?php echo $pet['age'] ?></td>
+        <td><?php echo $pet['peso'] ?></td>
+        <td><?php echo $pet['sexo'] ?></td>
+        <td><?php echo $pet['chip'] ?></td>
+        <td><?php echo $pet['dni_propietario'] ?></td>
+        <td><a href="index.php?action=more_info_farm_pet&pet=<?php echo $pet['chip']?>">Ver</a></td>
+      </tr>
+    <?php } ?>
+
+    </tbody>
+  </table>
+
+</body>
+
+</html>

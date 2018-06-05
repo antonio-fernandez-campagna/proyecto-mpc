@@ -1,69 +1,53 @@
-<!DOCTYPE html>
-<html>
+<?php include 'views/templates/header_template.phtml'; ?>
 
-<head>
-  <meta charset="utf-8">
-  <title>My Pet Card</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="accordion.js"></script>
-  <link rel="stylesheet" href="css.css">
-
-
-</head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark  user-navbar">
-    <a class="navbar-brand" href="#">MY PET CARD</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <div class="container-meds">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">logout</a>
-        </li>
-      </ul>
-
-
+    <?php if (!empty($errorSearch) && $errorSearch == true){ ?>
+    <div class="container">
+      <div class="alert alert-danger text-center mt-4" role="alert">
+          <strong>¡Error!</strong> DNI o CHIP no existe
+      </div>
     </div>
-  </nav>
 
+    <?php } ?>
 
-
-  <div class="row container-meds">
-
-    <div class="search-options">
+    <div class="search-options mt-4">
       <div class="main">
 
         <div class="accordion acc-searcher">
-              <div class="accordion-section">
-                <a class="accordion-section-title text-center active" href="#accordion-4">Buscar paciente</a>
+            <div class="accordion-section">
+                <a class="accordion-section-title text-center" href="#accordion-4">Buscar paciente</a>
                 <div id="accordion-4" class="accordion-section-content">
 
-                  <!-- Search form -->
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar por DNI" aria-label="Search term" aria-describedby="basic-addon">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-success" type="button">Buscar</button>
-                    </div>
-                  </div>
+                    <!-- Search form -->
+                    <div class="input-group mb-3">
+                        <form class="form w-100" action="index.php?action=basicInfoFarm" method="post">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar por DNI" aria-label="Search term" aria-describedby="basic-addon" name="dni">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                                </div>
+                            </div>
+                        </form>
 
-                  <!-- Search form -->
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar por CHIP" aria-label="Search term" aria-describedby="basic-addon">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-success" type="button">Buscar</button>
                     </div>
-                  </div>
+
+                    <!-- Search form -->
+                    <div class="input-group mb-3" >
+                        <form class="form-inline w-100" action="index.php?action=searchPet" method="post">
+                            <input type="number" class="form-control" placeholder="Buscar por CHIP" aria-label="Search term" aria-describedby="basic-addon" name="chip">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success" type="submit">Buscar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <!--end .accordion-section-content-->
-              </div>
             </div>
+        </div>
 
       </div>
 

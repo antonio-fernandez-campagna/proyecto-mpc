@@ -95,7 +95,7 @@ class prescriptions_model {
     public function add_prescriptions_script() {
 
         $id_med = 17;
-        
+
         $min = 1;
         $max = 100;
         $quantity = rand($min, $max);
@@ -103,24 +103,36 @@ class prescriptions_model {
         // la fecha de hace un año
         $time = strtotime("-1 year", time());
         $date = date("Y-m-d", $time);
-        
+
         // la fecha de ahora
         $dateNow = date("Y-m-d");
-        
-        while($date != $dateNow){
+
+        while ($date != $dateNow) {
             $query = "INSERT INTO recetas (mascota, medicamento, cantidad, observacion, cronico, fechaReceta)
                     VALUES (6, {$id_med}, {$quantity}, 'obervación prueba del medicamento generado con script', 'n', '{$date}')";
 
             $result = $this->db->query($query);
-            
-            $date = date('Y-m-d',strtotime($date . "+1 days"));
+
+            $date = date('Y-m-d', strtotime($date . "+1 days"));
         }
 
-        
+
         if ($this->db->error)
             return "true";
         else {
             return "false";
+        }
+    }
+
+    public function set_collected($id_prescription) {
+        $sql = "UPDATE recetas SET recogido = 'y' WHERE id = {$id_prescription} ";
+
+        $consulta = $this->db->query($sql);
+
+        if ($this->db->error)
+            return "$consulta<br>{$this->db->error}";
+        else {
+            return false;
         }
     }
 

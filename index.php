@@ -51,6 +51,26 @@ if (isset($_GET['action'])) {
         }
     }
 
+    if ($_GET['action'] == "basicInfoFarm") {
+        $result = $pets_controller->basic_info_vet();
+        if ($result == true) {
+            $homeController->view("", "", "", true);
+        }
+    }
+
+    if ($_GET['action'] == "more_info_farm_pet") {
+        $pets_controller->more_info_farm_view();
+    }
+
+    if ($_GET['action'] == "recogido") {
+        $prescriptions_controller->collected();
+    }
+
+
+
+
+
+
     // if ($_GET['action'] == "edit_pet") {
     //     $pets_controller->pet_modify();
     // }
