@@ -313,11 +313,22 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-.petCardFarm h2{
+/* .petCardFarm h2{
   z-index: 1;
   position: absolute;
   margin-top: 50px;
+  background: rgba(0, 100, 100, 0.5);
   font-family: 'Montserrat', sans-serif;
+} */
+
+.petCardFarm h2{
+  position: relative;
+  color: white;
+  z-index: 1;
+  background: rgba(59, 154, 154, 0.5);
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
 .petCardFarm p {
@@ -352,12 +363,16 @@ body {
   z-index: 1
 }
 
+
 .petCardLab h2{
   position: relative;
   color: white;
+  z-index: 1;
+  background: rgba(234, 226, 242, 0.5);
+  padding: 10px;
   font-family: 'Montserrat', sans-serif;
   margin-top: 50px;
-  z-index: 1
+
 }
 
 .petCardLab p{
