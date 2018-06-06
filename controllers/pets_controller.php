@@ -83,11 +83,10 @@ class pets_controller {
             return false; // hago return para que no haga include y acabe la función
         } elseif (empty($_POST['dni']) && empty($_POST['chip'])) {
             return true;
-        } elseif (empty($_POST['chip']) && empty($_POST['dni']) && $id_pet != "") {
-            $data['pets'] = $pets_model->get_pet_from_id($id_pet);
         }
-
-
+//         elseif (empty($_POST['chip']) && empty($_POST['dni']) && $id_pet != "") {
+//            $data['pets'] = $pets_model->get_pet_from_id($id_pet);
+//        }
 
         $pet_view = "yes";
 

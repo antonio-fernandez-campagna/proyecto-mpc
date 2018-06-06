@@ -1,22 +1,22 @@
 jQuery(document).ready(function () {
 
-        $(".recetar").click(function(){
-          if ($(this).hasClass("activated")) {
-              $(this).removeClass("activated");
-              $(this).html("recetar");
-          } else {
+    $(".recetar").click(function () {
+        if ($(this).hasClass("activated")) {
+            $(this).removeClass("activated");
+            $(this).html("recetar");
+        } else {
             $(this).addClass("activated");
             $(this).html("cerrar");
-          }
-        });
+        }
+    });
 
 
-        $(".filterProduct").change(function () {
-      // si la clase filterProduct tiene la clase "activated" se la quita, sino, se la pone
+    $(".filterProduct").change(function () {
+        // si la clase filterProduct tiene la clase "activated" se la quita, sino, se la pone
         if ($(this).hasClass("activated")) {
             $(this).removeClass("activated");
         } else {
-          $(this).addClass("activated");
+            $(this).addClass("activated");
         }
 
         $category = [];
@@ -30,8 +30,8 @@ jQuery(document).ready(function () {
         // función para filtrar y recoger los valores de los precios
         $(".card").each(function () {
 
-              // si hay algo en el array de marcas y el id del card no está en el array lo esconde, sino, lo muestra
-              if ($category.length && jQuery.inArray($(this).find(".categoria").attr("id"), $category) === -1) {
+            // si hay algo en el array de marcas y el id del card no está en el array lo esconde, sino, lo muestra
+            if ($category.length && jQuery.inArray($(this).find(".categoria").attr("id"), $category) === -1) {
                 $(this).hide();
             } else {
                 $(this).show();
@@ -64,11 +64,16 @@ jQuery(document).ready(function () {
         e.preventDefault();
     });
 
-
+    var nChip = "";
 
     $('#efectSearch').keyup(function ()
     {
         var word = $('#efectSearch').val();
+
+        if(!nChip){
+            nChip = document.getElementById("nChip").value;
+        }
+
 
         $.ajax(
                 {
@@ -81,7 +86,8 @@ jQuery(document).ready(function () {
 
                         $('.card-medicines').remove();
 
-                        var html = process_data(medicines);
+
+                        var html = process_data(medicines, nChip);
 
                         $('.medicine-container').append(html);
                     }
@@ -114,23 +120,24 @@ jQuery(document).ready(function () {
 
 });
 
-function process_data(medicines) {
+function process_data(medicines, nChip) {
+
 
     var html = "";
-medicines.forEach(function(medicine){
+    medicines.forEach(function (medicine) {
         html += "<div class='card mb-5 col-3 ml-5 card-medicines'>"
                 + "<a data-toggle='modal' href='#modall' style='width:70%'><img class='card-img-top' src='" + medicine.url + "'></a>"
                 + "<div class='card-block'>"
                 + "<h4 class='card-title'>"
                 + medicine.nombre
-                +"</h4>"
+                + "</h4>"
                 + "<div class='meta'>"
                 + "<a data-toggle='modal' href='#modal'>"
                 + medicine.categoria
                 + "</a>"
                 + "</div>"
                 + "<div class='card-text'>"
-                 + medicine.efecto
+                + medicine.efecto
                 + "</div>"
 
                 + "<div class='collapse mt-2' id='collapseExample" + medicine.id + "'>"
@@ -138,7 +145,7 @@ medicines.forEach(function(medicine){
                 + "<div class='meta'>"
                 + "<span class='mt-2'>Efecto Secundario</span>"
                 + "</div>"
-                +   medicine.efecto_secundario
+                + medicine.efecto_secundario
                 + "</div>"
                 + "<div class='row mt-4'>"
                 + "<div class='col-6'>"
@@ -161,7 +168,7 @@ medicines.forEach(function(medicine){
 
                 + "<div class='form-group'>"
                 + "<label for='usr'>Número de chip:</label>"
-                + "<input type='text' class='form-control' id='usr'>"
+                + "<input type='text' class='form-control' id='usr' value='" + nChip + "' >"
                 + "</div>"
                 + "<button name='id' value='' class='btn btn-outline-danger float-right btn-sm' data-toggle='collapse' data-target='#collapseExample'>Confirmar receta</button>"
 

@@ -9,7 +9,7 @@ body {
 .primary-bg {
   position: relative;
   /* The image used */
-  background-image: url("../../imgs/wallpaper.jpg");
+  background-image: url("../../imgs/wallpaper-min.jpg");
   /* Full height */
   height: 950px;
   width: 100%;

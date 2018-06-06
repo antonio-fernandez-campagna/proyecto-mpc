@@ -123,72 +123,33 @@ class pets_model {
         }
     }
 
-    public function get_pet_dni($dni) {
-        $query = "select DISTINCT m.*, a.especie, TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age from mascota m, animales a where m.dni_propietario = '{$dni}}' and a.id = m.especie ";
 
-        $consulta = $this->db->query($query);
-        while ($filas = $consulta->fetch_assoc()) {
-            $this->species[] = $filas;
-        }
-        return $this->species;
-    }
-
-    public function get_pet_chip($chip) {
-        $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, r.cronico, med_nom.nombre as nombre_medicamento , TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age "
-                . "from mascota m, recetas r, animales a, medicamento_nombre med_nom where a.id = m.especie and med_nom.id = r.medicamento and m.chip = {$chip} and r.cronico = 'y'";
-
-
-        $consulta = $this->db->query($query);
-
-        if ($consulta->num_rows == 0) {
-
-
-            $query = "select DISTINCT m.*, a.especie, TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age from mascota m, animales a where a.id = m.especie and m.chip = {$chip}";
-            $consulta = $this->db->query($query);
-
-            while ($filas = $consulta->fetch_assoc()) {
-                $this->species[] = $filas;
-            }
-
-            return $this->species;
-        } else {
-
-            while ($filas = $consulta->fetch_assoc()) {
-                $this->species[] = $filas;
-            }
-            return $this->species;
-        }
-    }
-
-    public function get_pet_from_id($id) {
-        $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, r.cronico, med_nom.nombre as nombre_medicamento , TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age "
-                . "from mascota m, recetas r, animales a, medicamento_nombre med_nom where a.id = m.especie and med_nom.id = r.medicamento and m.id = {$id} and r.cronico = 'y'";
-
-        $consulta = $this->db->query($query);
-
-        //echo "<pre>".print_r($consulta, 1)."</pre>";
-
-
-        if ($consulta->num_rows == 0) {
-
-
-            $query = "select DISTINCT m.*, a.especie, TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age from mascota m, animales a where a.id = m.especie and m.id = {$id}";
-
-            $consulta = $this->db->query($query);
-
-            while ($filas = $consulta->fetch_assoc()) {
-                $this->species[] = $filas;
-            }
-
-            return $this->species;
-        } else {
-
-            while ($filas = $consulta->fetch_assoc()) {
-                $this->species[] = $filas;
-            }
-            return $this->species;
-        }
-    }
+//    public function get_pet_from_id($id) {
+//        $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, r.cronico, med_nom.nombre as nombre_medicamento , TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age "
+//                . "from mascota m, recetas r, animales a, medicamento_nombre med_nom where a.id = m.especie and med_nom.id = r.medicamento and m.id = {$id} and r.cronico = 'y'";
+//
+//        $consulta = $this->db->query($query);
+//
+//        if ($consulta->num_rows == 0) {
+//
+//
+//            $query = "select DISTINCT m.*, a.especie, TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age from mascota m, animales a where a.id = m.especie and m.id = {$id}";
+//
+//            $consulta = $this->db->query($query);
+//
+//            while ($filas = $consulta->fetch_assoc()) {
+//                $this->species[] = $filas;
+//            }
+//
+//            return $this->species;
+//        } else {
+//
+//            while ($filas = $consulta->fetch_assoc()) {
+//                $this->species[] = $filas;
+//            }
+//            return $this->species;
+//        }
+//    }
 
     public function get_pet_id($chip) {
         $query = "SELECT id FROM mascota where chip = '{$chip}'";
