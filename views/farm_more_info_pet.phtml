@@ -18,8 +18,9 @@
                     <th scope="col">Edad</th>
                     <th scope="col">Peso</th>
                     <th scope="col">sexo</th>
-                    <th scope="col">Medicamento crónico</th>
+                    <th scope="col">Medicamento</th>
                     <th scope="col">Comentario</th>
+                    <th scope="col">cantidad</th>
                     <th scope="col">chip</th>
                     <th scope="col">Dni propietario</th>
                     <th scope="col"></th>
@@ -35,6 +36,7 @@
                         <td><?php echo $pet['sexo'] ?></td>
                         <td><?php echo $pet['nombre_medicamento'] ?></td>
                         <td><?php echo $pet['observacion'] ?></td>
+                        <td><?php echo $pet['cantidad'] ?></td>
                         <td><?php echo $pet['chip'] ?></td>
                         <td><?php echo $pet['dni_propietario'] ?></td>
                         <?php if ($pet['cronico'] == "n") { ?>

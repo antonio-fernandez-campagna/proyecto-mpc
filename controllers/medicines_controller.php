@@ -4,15 +4,15 @@
 require_once("models/medicines_model.php");
 require_once("controllers/medicines_controller.php");
 
-// clase que controla aádir productos, la vista de productos (la del buscador o por subcategorias), y se mostrarán las categorias
+// clase que controla lo relacionado con las medicinas(obtenerlas y creación de gráficos)
 class medicines_controller {
 
-    // Función muestra la vista de product_view.phtml
-    // se le pasa el id de la subcategoria y muestra los productos por esta subcategoria
+    // Función que devuelve las medicinas (todas o por palabra buscada)
     function get_medicine($medicine = "") {
 
         $med = new medicines_model();
 
+        // se llama a la función que pertoque si $medice está vacio o no (es la medicina buscada)
         if (empty($medicine)) {
             $medicines = $med->get_all_medicines();
         } else {
@@ -23,6 +23,8 @@ class medicines_controller {
 
         $data['medicines'] = [];
 
+        
+        // se asignan qué medicamento es recomendado para qué especie
         if (!empty($medicines)) {
 
             foreach ($medicines as $med) {
@@ -49,6 +51,7 @@ class medicines_controller {
         return $data['medicines'];
     }
 
+    // función que devuelve todas las especies
     function all_species() {
 
         $med = new medicines_model();
@@ -58,6 +61,7 @@ class medicines_controller {
         return $species;
     }
 
+    // función que devuelve las vías de administración
     function all_way_administration() {
 
         $med = new medicines_model();
@@ -67,19 +71,7 @@ class medicines_controller {
         return $administration;
     }
 
-    function medicines_name_graphic() {
-
-        $med = new medicines_model();
-
-        $medicines = $med->get_medicine_graphics();
-        $out = [];
-
-        foreach ($medicines as $m) {
-            array_push($out, $m->nombre_medicamento);
-        }
-
-        return implode(',', $out);
-    }
+   
 
     function medicine_graph() {
 

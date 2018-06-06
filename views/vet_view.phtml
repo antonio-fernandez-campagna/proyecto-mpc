@@ -1,5 +1,8 @@
 <?php include 'views/templates/header_template.phtml'; ?>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js" async="async"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" async="async"></script>
+
 <body>
 
 
@@ -116,9 +119,7 @@
             </div>
             <!--end .accordion-->
 
-            <!-- <form class="mb-4 mt-4" action="?action=generarRecetas" method="post">
-                <button type="submit" name="button">Generar recetas aleatorias</button>
-            </form> -->
+  
 
         </div>
 
@@ -171,12 +172,12 @@
                         <div class="row mt-4">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <input type="number" class="form-control"  placeholder="Cantidad" min="1" name="quantity">
+                                    <input type="number" class="form-control quantityValue"  placeholder="Cantidad"  min="1" value="1" name="quantity">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-check mt-2">
-                                    <input type="checkbox" class="form-check-input" value="y" name="chronic">
+                                    <input type="checkbox" class="form-check-input quantity" value="y" name="chronic">
                                     <label class="form-check-label" for="exampleCheck1">Medicamento crónico</label>
                                 </div>
                             </div>

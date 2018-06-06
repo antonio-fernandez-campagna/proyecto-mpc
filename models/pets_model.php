@@ -255,7 +255,7 @@ class pets_model {
 
     public function get_more_info($chip) {
 
-        $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, r.id as id_receta, r.cronico, r.recogido, med_nom.nombre as nombre_medicamento ,
+        $query = "select DISTINCT m.*, a.especie, r.medicamento, r.observacion, r.id as id_receta, r.cronico, r.recogido, r.cantidad, med_nom.nombre as nombre_medicamento ,
             TIMESTAMPDIFF(YEAR, m.fechanac, CURDATE()) AS age from mascota m, recetas r, animales a, 
             medicamento_nombre med_nom where a.id = m.especie and med_nom.id = r.medicamento and m.chip = {$chip}
  and r.mascota = m.id and r.recogido is null";

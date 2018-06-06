@@ -84,8 +84,6 @@ class prescriptions_model {
         $query = "INSERT INTO recetas (mascota, medicamento, cantidad, observacion, cronico, fechaReceta)
                     VALUES ({$this->pet['id']},{$this->medicine}, {$this->quantity}, '{$this->observation}','{$this->chronic}', NOW())";
                     
-                    die($query);
-
         $result = $this->db->query($query);
         if ($this->db->error)
             return "true";

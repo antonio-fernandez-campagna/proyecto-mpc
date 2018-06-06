@@ -1,5 +1,12 @@
 jQuery(document).ready(function () {
 
+
+    $(".quantity").click(function () {
+        if ($(this).prop('checked') == true) {
+            $(".quantityValue").val(1);
+        }
+    });
+
     $(".recetar").click(function () {
         if ($(this).hasClass("activated")) {
             $(this).removeClass("activated");
@@ -70,8 +77,10 @@ jQuery(document).ready(function () {
     {
         var word = $('#efectSearch').val();
 
-        if(!nChip){
-            nChip = document.getElementById("nChip").value;
+        chip = document.getElementById("nChip");
+
+        if (!nChip && chip != null) {
+            nChip = chip.value;
         }
 
 
@@ -139,7 +148,7 @@ function process_data(medicines, nChip) {
                 + "<div class='card-text'>"
                 + medicine.efecto
                 + "</div>"
-
+                + "<form action='index.php?action=addPresciption&id=" + medicine.id + "' method='post'>" 
                 + "<div class='collapse mt-2' id='collapseExample" + medicine.id + "'>"
                 + "<div class='card card-body'>"
                 + "<div class='meta'>"
@@ -150,12 +159,12 @@ function process_data(medicines, nChip) {
                 + "<div class='row mt-4'>"
                 + "<div class='col-6'>"
                 + "<div class='form-group'>"
-                + "<input type='number' class='form-control' id='exampleInputPassword1' placeholder='Cantidad'>"
+                + "<input type='number' class='form-control quantityValue'  placeholder='Cantidad'  min='1' value='1' name='quantity'>"
                 + "</div>"
                 + "</div>"
                 + "<div class='col-6'>"
                 + "<div class='form-check mt-2'>"
-                + "<input type='checkbox' class='form-check-input' id='exampleCheck1'>"
+                + "<input type='checkbox' class='form-check-input quantity' value='y' name='chronic'>"
                 + "<label class='form-check-label' for='exampleCheck1'>Medicamento crónico</label>"
                 + "</div>"
                 + "</div>"
@@ -163,17 +172,17 @@ function process_data(medicines, nChip) {
 
                 + "<div class='form-group'>"
                 + "<label for='comment'>Observación</label>"
-                + "<textarea class='form-control' rows='5' id='comment'></textarea>"
+                + "<textarea class='form-control' rows='5' id='comment' name='observation'></textarea>"
                 + "</div>"
 
                 + "<div class='form-group'>"
                 + "<label for='usr'>Número de chip:</label>"
-                + "<input type='text' class='form-control' id='usr' value='" + nChip + "' >"
+                + "<input type='text' class='form-control'  id='nChip' name='chip' value='" + nChip + "' >"
                 + "</div>"
-                + "<button name='id' value='' class='btn btn-outline-danger float-right btn-sm' data-toggle='collapse' data-target='#collapseExample'>Confirmar receta</button>"
+                + "<button name='id' type='submit' class='btn btn-outline-danger float-right btn-sm' data-toggle='collapse' data-target='#collapseExample'>Confirmar receta</button>"
 
                 + "</div>"
-
+                + "</form>"
                 + "</div>"
                 + "<div class='card-footer mb-2'>"
                 + "<button name='id' value='' class='btn btn-outline-success float-right btn-sm' data-toggle='collapse' data-target='#collapseExample" + medicine.id + "'>Recetar</button>"
