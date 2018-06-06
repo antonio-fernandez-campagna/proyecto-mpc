@@ -8,5 +8,4 @@ $medicine = new medicines_model();
 // recoge los nombres de las medicinas para la función de autocompletado
 $allMedicines = $medicine->get_name_medicine_autocomplete();
 
-// hace un echo del array de los productos que recojo en anteriormente en formato JSON
 echo json_encode($allMedicines, 1);

@@ -4,7 +4,9 @@ require_once 'models/pets_model.php';
 
 class pets_controller {
 
-    // Función que muestra la página principal
+    // Función muestra la página de añadir mascotas
+    // si se inserta una fecha inválida mostrará error
+    // se ha habido un error al insertar la mascota mostrará un error
     function add_view($errorAdd = "", $errorDate = "") {
 
         if (!empty($_SESSION['user'])) {
@@ -12,19 +14,22 @@ class pets_controller {
             $pets_model = new pets_model();
             $data = $pets_model->get_species();
 
+            // si pet_view es igual a yes bloqueará los buscadores de arriba a la derecha de la página (buscar medicamentos)
             $pet_view = "yes";
             require_once("views/vet_add_pet_view.phtml");
         } else {
             require_once("views/home_view.phtml");
         }
     }
-
+    
+    
+    // función para añadir mascotas 
     function add_pet() {
         $pets_model = new pets_model();
 
         $conexion = $pets_model->db;
 
-        // comprobaciíon de mysql injection
+        // comprobaciíon de que los campos no estén vacíos y de mysql injection
 
         $name = !empty($_POST['petName']) ? $_POST['petName'] : "";
         $specie = !empty($_POST['specie']) ? $_POST['specie'] : "";
@@ -42,13 +47,15 @@ class pets_controller {
         $sex = mysqli_real_escape_string($conexion, $sex);
         $weight = mysqli_real_escape_string($conexion, $weight);
 
+        // guarda la fecha de hoy
         $today = date("Y-m-d");
 
 
+        // si la fecha introducida es mayor al día de hoy devolverá false y por lo tanto
+        // mostrará un error
         if ($birthDate > $today) {
             return false;
         }
-
 
         $pets_model->setName($name);
         $pets_model->setSpecie($specie);
@@ -62,13 +69,17 @@ class pets_controller {
         $this->add_view($error);
     }
 
+    // función para los veterinarios para ver la información de las mascotas
     function pet_view($id_pet = "", $chip = "") {
         $pets_model = new pets_model();
 
-
+        // Si se ha buscado por dni, mostrará todas las mascotas que tenga esa persona
+        // Si se ha buscado por chip mostrará la información detallada de la mascota (solo mostrará las recetas crónicas)
+        // si dni y chip están vacios no se buscará y devolverá true para posteriormente mostrar un error
         if (!empty($_POST['dni'])) {
             $dni = $_POST['dni'];
             $data['pets'] = $pets_model->get_info_pet_dni($dni);
+            // si no existe $data['pets]`(la mascota)devolverá true y por lo tanto mostrará un eror
             if (empty($data['pets'])) {
                 return true;
             }
@@ -84,9 +95,6 @@ class pets_controller {
         } elseif (empty($_POST['dni']) && empty($_POST['chip'])) {
             return true;
         }
-//         elseif (empty($_POST['chip']) && empty($_POST['dni']) && $id_pet != "") {
-//            $data['pets'] = $pets_model->get_pet_from_id($id_pet);
-//        }
 
         $pet_view = "yes";
 
@@ -94,10 +102,12 @@ class pets_controller {
         include 'views/pet_info_view.phtml';
     }
 
+    // muestra la vista de edición de mascota
     function edit_pet_view() {
         $pets_model = new pets_model();
         $chip = $_GET['pet'];
 
+        // se guarda la información de la mascota
         $data['pets'] = $pets_model->get_info_pet_chip($chip);
 
         $pet_view = "yes";
@@ -105,11 +115,13 @@ class pets_controller {
         include 'views/pet_edit_view.phtml';
     }
 
+    // función que guarda los valores editados para las mascotas
     function edit_pet() {
         $pets_model = new pets_model();
         $conexion = $pets_model->db;
         $id_chip = $_GET['pet_chip'];
 
+        // prevención de sql injection
         $name = mysqli_real_escape_string($conexion, $_POST['name']);
         $dniProp = mysqli_real_escape_string($conexion, $_POST['dni']);
         $weight = mysqli_real_escape_string($conexion, $_POST['weight']);
@@ -125,9 +137,10 @@ class pets_controller {
             return;
         }
 
-        $this->pet_view(); // todo: añadir para despues de eliminar perro/receta
+        $this->pet_view(); 
     }
 
+    // muestra la la información detalla de la mascota si se hace clic desde "ver" si se ha buscado por DNI anteriormente
     function prescribe_view() {
         $pets_model = new pets_model();
         $chip = $_GET['pet'];
@@ -138,6 +151,7 @@ class pets_controller {
         include 'views/pet_prescribe_view.phtml';
     }
 
+    // función para eliminar una mascota
     function delete_pet() {
         $pets_model = new pets_model();
         $homeController = new home_controller();
@@ -149,6 +163,7 @@ class pets_controller {
         $homeController->view("", "", "", "", true);
     }
 
+    // función para eliminar una receta
     function delete_prescription() {
         $pets_model = new pets_model();
 
@@ -159,6 +174,7 @@ class pets_controller {
         $this->show_view_after_delete($chip);
     }
 
+    // función para mostrar nuevamente la información de las mascota después de haber eliminado una mascota
     function show_view_after_delete($chip = "") {
         $pets_model = new pets_model();
         $data['pets'] = $pets_model->get_info_pet_chip($chip);
@@ -168,7 +184,8 @@ class pets_controller {
         include 'views/pet_prescribe_view.phtml';
     }
 
-    function basic_info_vet() {
+    // muestra la información básica de la mascota (cuando se busca por dni) para el usuario de tipo farmacia
+    function basic_info_farm() {
 
         $pets_model = new pets_model();
 
@@ -185,6 +202,7 @@ class pets_controller {
         }
     }
 
+    // muestra la información detallada de la mascota para el usuario de tipo farmacia
     function more_info_farm_view($chip = "") {
 
         $pets_model = new pets_model();
@@ -193,6 +211,7 @@ class pets_controller {
             $chip = !empty($_REQUEST['pet']) ? $_REQUEST['pet'] : "";
         }
  
+        // si no hay recetas mostrará un aviso de que no hay recetas para esa mascota
         if (!empty($chip)) {
             $data['pets'] = $pets_model->get_more_info($chip);
             if (empty($data['pets'])) {

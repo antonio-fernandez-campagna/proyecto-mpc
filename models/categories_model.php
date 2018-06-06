@@ -12,7 +12,7 @@ class categories_model {
         $this->categories = array();
     }
 
-    // Función que devuelve todos los productos
+    // Función que devuelve todas las categorias
     public function get_all_categories() {
         $query = "SELECT * FROM categoria_medicamento";
 

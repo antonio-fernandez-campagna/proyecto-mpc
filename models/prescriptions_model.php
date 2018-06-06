@@ -79,6 +79,7 @@ class prescriptions_model {
         $this->chronic = $chronic;
     }
 
+    // función para añadir una receta a una mascota
     public function add_prescription() {
 
         $query = "INSERT INTO recetas (mascota, medicamento, cantidad, observacion, cronico, fechaReceta)
@@ -92,8 +93,10 @@ class prescriptions_model {
         }
     }
 
+    // script para generar recetas desde hace un año al día de hoy 
     public function add_prescriptions_script() {
 
+        // id_med es el id del medicamento con el que se generarán recetas
         $id_med = 17;
 
         $min = 1;
@@ -113,6 +116,7 @@ class prescriptions_model {
 
             $result = $this->db->query($query);
 
+            // se suma un dia
             $date = date('Y-m-d', strtotime($date . "+1 days"));
         }
 
@@ -124,6 +128,7 @@ class prescriptions_model {
         }
     }
 
+    // función para marcar como recogida una receta pasandole como parámetro el id de la receta
     public function set_collected($id_prescription) {
         $sql = "UPDATE recetas SET recogido = 'y' WHERE id = {$id_prescription} ";
 

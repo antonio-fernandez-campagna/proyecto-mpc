@@ -20,7 +20,7 @@ class medicines_model {
         $this->category = array();
     }
 
-    // Función que devuelve todos los productos
+    // Función que devuelve todas las medicinas
     public function get_all_medicines() {
         $query = "SELECT med.id, medN.nombre, cat.nombre as categoria, efe.efecto, adm.id as id_adm, cat.id as id_cat, efeSec.efecto_secundario, "
                 . "adm.administramiento, img.url, lab.marca FROM medicamento med, medicamento_nombre medN, categoria_medicamento cat, efecto_medicamento efe, "
@@ -34,7 +34,7 @@ class medicines_model {
         return $this->medicines;
     }
 
-    // Función para el buscador, devuelve la descripcion corta y el ID todos los productos
+    // Función que devuelve los medicamentos que contengan la palabra introducida en el efecto del medicamento
     public function get_medicine_by_efect($word) {
         $query = "SELECT med.id, medN.nombre, cat.nombre as categoria, efe.efecto, efeSec.efecto_secundario, adm.administramiento, img.url, lab.marca FROM "
                 . "medicamento med, medicamento_nombre medN, categoria_medicamento cat, efecto_medicamento efe, efectos_secundarios efeSec, administramiento_medicamento adm, imagenes img, laboratorio lab "
@@ -47,6 +47,7 @@ class medicines_model {
         return $this->medicines;
     }
 
+    // función que devuelve que medicamento es aconsejado para cada animal
     public function get_species() {
         $query = "sELECT med_spe.*, a.especie FROM medicamento_especie med_spe, animales a where a.id = med_spe.id_especie";
         $consulta = $this->db->query($query);
@@ -56,6 +57,7 @@ class medicines_model {
         return $this->species;
     }
 
+    // función que devuelve todos los tipos de animal
     public function get_all_species() {
         $query = "SELECT * FROM animales";
         $consulta = $this->db->query($query);
@@ -65,6 +67,7 @@ class medicines_model {
         return $this->species;
     }
 
+    // función que devuelve las vías de administración
     public function get_way_administration() {
         $query = "SELECT * FROM administramiento_medicamento";
         $consulta = $this->db->query($query);
@@ -74,6 +77,7 @@ class medicines_model {
         return $this->administration;
     }
 
+    // función quie devuelve los nombre de los medicamentos para la función autocomplete
     public function get_name_medicine_autocomplete() {
         $query = "SELECT m.*, mn.nombre as value, mn.id as data FROM medicamento m, medicamento_nombre mn where m.id = mn.id";
         $consulta = $this->db->query($query);
@@ -83,6 +87,7 @@ class medicines_model {
         return $this->medicines;
     }
 
+    // función que devuelve los medicamentos que tengan en el nombre la palabra introducida
     public function get_name_medicine($medicine) {
         $query = "SELECT med.id, medN.nombre, cat.nombre as categoria, efe.efecto, adm.id as id_adm,
             cat.id as id_cat, efeSec.efecto_secundario, adm.administramiento, img.url, lab.marca FROM medicamento med,
@@ -98,6 +103,7 @@ class medicines_model {
         return $this->medicines;
     }
 
+    // función que devuelve las medicinas para una categoria
     public function get_medicine_graphics($cat) {
         $query = "SELECT m.nombre as id_medicamento, m.categoria as id_categoria, mn.nombre as nombre_medicamento, c.nombre as nombre_categoria from "
                 . "medicamento m, medicamento_nombre mn, categoria_medicamento c WHERE m.nombre = mn.id and m.categoria = c.id and c.id = {$cat}";
@@ -110,18 +116,7 @@ class medicines_model {
         return $this->medicines;
     }
 
-//    public function get_graph($idMed) {
-//        $query = "select count(*) as cnt, CONCAT(YEAR(fechaReceta),'-',MONTH(fechaReceta)) as MonthYear, medicamento as id_medicamento from recetas WHERE medicamento = {$idMed} group by MonthYear order by fechaReceta ASC";
-//
-//        die($query);
-//
-//        $consulta = $this->db->query($query);
-//        while ($filas = $consulta->fetch_assoc()) {
-//            $this->medicines[] = $filas;
-//        }
-//        return $this->medicines;
-//    }
-
+    // función que devuelve el nombre de la categoria buscada para la función graphics
     public function get_current_category($idCat) {
         $query = "select nombre from categoria_medicamento where id = {$idCat}";
         
@@ -132,11 +127,16 @@ class medicines_model {
         return $this->category;
     }
 
+    // función que devuelve cuantas recetas se han hecho cada mes para cada medicamento (pasandole la categoria que buscar)
     public function graphic($catMedicinas) {
-        $meds = $this->get_medicine_graphics($catMedicinas);
+        
+        // se guardan las medicinas de una categoria
+        $medicines = $this->get_medicine_graphics($catMedicinas);
+        
         $idsMedicinas = [];
-        foreach ($meds as $m) {
-            $idsMedicinas[] = $m['id_medicamento'];
+        
+        foreach ($medicines as $medicine) {
+            $idsMedicinas[] = $medicine['id_medicamento'];
         }
         $idsMedicinas = implode(',', $idsMedicinas);
 
@@ -145,10 +145,15 @@ class medicines_model {
 
                 
         $consulta = $this->db->query($query);
-        $this->medicines = []; //todo change var name to be used as output storage
+        
+        $this->medicines = []; 
+        
+        // guarda las medicinas estructuradas por fecha como key del array -> la key del array dentro del primer array como ID el medicamento y dentro 
+        //  se guarda el nombre del medicamento y la cantidad total de recetas para esa fecha
         while ($fila = $consulta->fetch_assoc()) {
-            $this->medicines[$fila['MonthYear']][$fila['id_medicamento']] = ['nombre' => $meds[$fila['id_medicamento']]['nombre_medicamento'], 'suma' => $fila['suma']];
+            $this->medicines[$fila['MonthYear']][$fila['id_medicamento']] = ['nombre' => $medicines[$fila['id_medicamento']]['nombre_medicamento'], 'suma' => $fila['suma']];
         }
+        
         return $this->medicines;
     }
 

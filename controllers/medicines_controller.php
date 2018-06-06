@@ -23,7 +23,7 @@ class medicines_controller {
 
         $data['medicines'] = [];
 
-        
+
         // se asignan qué medicamento es recomendado para qué especie
         if (!empty($medicines)) {
 
@@ -71,53 +71,80 @@ class medicines_controller {
         return $administration;
     }
 
-   
+    // función que crea las gráficas de las medicinas.
+    // crea una gráfica que muestra cuánto se ha vendido cada medicamento en un mes.
+    // crea la gráfica por cada categoría.
 
     function medicine_graph() {
 
         $cat = new categories_controller();
         $med = new medicines_model();
+        
+        // si se ha clicado en una categoria mostrará esa, si no, por defecto mostrará la categoria con ID 1
         $catMedicine = !empty($_GET['catMedicine']) ? $_GET['catMedicine'] : 1;
 
 
         $prescription = $med->graphic($catMedicine);
-        $out = [];
-
+                
+        // se obtiene la categoria búscada para la gráfica
         $currentCategory = $med->get_current_category($catMedicine);
 
+
+        // se guarda la key del array $prescription
         $fechas = array_keys($prescription);
-        $medicinasIds = [];
-        $medicinasNames = [];
+
+        $medicinesId = [];
+        $medicinesName = [];
+
+        
+        // guarda en el array $medicinesId el Id de los medicamentos
+        // guarda en el array $medicinesName el nombre de los medicamentos como Key del array el ID del medicamento
         foreach ($prescription as $date => $values) {
-            foreach ($values as $k => $m) {
-                $medicinasIds[] = $k;
-                $medicinasNames[$k] = $m['nombre'];
+            foreach ($values as $id => $medicine) {
+                $medicinesId[] = $id;
+                $medicinesName[$id] = $medicine['nombre'];
             }
         }
+        
+        
+        // crea un array con los ID de los medicamentos
+        $medicinesId = array_unique($medicinesId);
 
-        $medicinasIds = array_unique($medicinasIds);
-
+        // se empieza a crear la tabla que en la que se guardarán los datos de las medicinas
         $html = '<table border=1 class="highchart" data-graph-container=".. .. .highchart-container" data-graph-type="line">';
         $html .= '<caption>Número de medicamentos recetados por mes || Gráficos de la categoría: ' . $currentCategory[0]['nombre'] . '</caption>';
         $html .= '<thead><tr><th>Month</th>';
-        foreach ($medicinasNames as $mn) {
-            $html .= "<th>{$mn}</th>";
+        
+        // se crean los TH con los nombres de las medicinas
+        foreach ($medicinesName as $name) {
+            $html .= "<th>{$name}</th>";
         }
         $html .= '</tr></thead>';
         $html .= '<tbody>';
-        foreach ($fechas as $d) {
-            $html .= "<tr><td>{$d}</td>";
-            foreach ($medicinasIds as $m) {
-                $val = isset($prescription[$d][$m]) ? $prescription[$d][$m]['suma'] : 0;
-                $html .= "<td>{$val}</td>";
+                
+        // crea la tabla para cada fecha la cantidad de medicamentos recetados
+        foreach ($fechas as $date) {
+            
+            // se crean los td con las fechas
+            $html .= "<tr><td>{$date}</td>";
+            
+            foreach ($medicinesId as $id) {       
+                
+                // se guarda la "suma" (la cantidad de medicamentos recetados cada mes), si no hay se pone 0;
+                $val = isset($prescription[$date][$id]) ? $prescription[$date][$id]['suma'] : 0;
+                
+                // se introduce un "td" con la cantidad de cada medicamento para una fecha
+                $html .= "<td>{$val}</td>";      
+                
             }
             $html .= "</tr>";
         }
         $html .= '</tbody></table>';
 
-
+        // recoge todas las categorias
         $data['categories'] = $cat->all_categories();
 
+        // llama a la vista
         include 'views/lab_view.phtml';
     }
 

@@ -7,7 +7,7 @@ $medicine = new medicines_model();
 
 $word = $_POST['word'];
 
+// muestra las medicinas que tengan la palabra buscada como efecto del medicamento
 $allMedicines = $medicine->get_medicine_by_efect($word);
 
-// hace un echo del array de los productos que recojo en anteriormente en formato JSON
 echo json_encode($allMedicines, 1);

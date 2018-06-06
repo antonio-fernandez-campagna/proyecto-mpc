@@ -89,6 +89,7 @@ class login_model {
 
     public function verifyUser() {
 
+        // la contraseña está encriptada en MD5
         $crypt = md5($this->password);
 
         $query = "SELECT u.*, t.tipo as tipo_usuario FROM usuarios u, tipo_usuario t WHERE u.usuario ='{$this->username}' AND u.contrasenya = '{$crypt}' AND u.tipo = t.id;";

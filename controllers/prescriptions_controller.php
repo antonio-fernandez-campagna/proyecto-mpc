@@ -6,6 +6,7 @@ require_once 'controllers/home_controller.php';
 
 class prescriptions_controller {
 
+    //función para añadir recetas
     function add_prescription() {
         $prescription_model = new prescriptions_model();
         $pets_model = new pets_model();
@@ -34,11 +35,13 @@ class prescriptions_controller {
         $home_controller->view("", $presError);
     }
 
+    // script para generar recetas
     function generar_recetas() {
         $prescription_model = new prescriptions_model();
         $prescription_model->add_prescriptions_script();
     }
 
+    // función para marcar como "recogida" una receta
     function collected() {
         $prescription_model = new prescriptions_model();
         $pet_controller = new pets_controller();

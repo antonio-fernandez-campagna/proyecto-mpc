@@ -52,7 +52,7 @@ if (isset($_GET['action'])) {
     }
 
     if ($_GET['action'] == "basicInfoFarm") {
-        $result = $pets_controller->basic_info_vet();
+        $result = $pets_controller->basic_info_farm();
         if ($result == true) {
             $homeController->view("", "", "", true);
         }
